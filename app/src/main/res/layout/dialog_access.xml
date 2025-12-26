@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/dialogStyle">
+
+    <ImageView
+        android:id="@+id/close_btn_iv"
+        android:layout_width="@dimen/close_btn_size"
+        android:layout_height="@dimen/close_btn_size"
+        android:layout_gravity="end"
+        android:src="@drawable/icon_cancel"/>
+
+    <ImageView
+        android:layout_width="@dimen/info_image_size"
+        android:layout_height="@dimen/info_image_size"
+        android:layout_marginTop="24dp"
+        android:layout_gravity="center"
+        android:src="@drawable/icon_info"/>
+
+    <TextView
+        android:id="@+id/notification_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="@string/are_you_sure_you_want_to_delete_this"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/access_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="32dp"
+            style="@style/access_btn_style"
+            android:text="@string/access"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            style="@style/attention_btn_style"
+            android:text="@string/cancel"/>
+
+    </LinearLayout>
+
+</LinearLayout>

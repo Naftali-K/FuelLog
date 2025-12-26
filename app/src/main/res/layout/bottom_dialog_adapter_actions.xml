@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/bottomSheetDialogStyle">
+
+    <TextView
+        android:id="@+id/edit_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/bottomSheetDialogItemStyle"
+        android:drawableStart="@drawable/icon_edit"
+        android:text="@string/edit"/>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/bottomSheetDialogSeparatorStyle"/>
+
+    <TextView
+        android:id="@+id/delete_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/bottomSheetDialogItemAttentionStyle"
+        android:drawableStart="@drawable/icon_delete"
+        android:text="@string/delete"/>
+
+    <View
+        android:layout_width="match_parent"
+        style="@style/bottomSheetDialogSeparatorStyle"/>
+
+    <TextView
+        android:id="@+id/cancel_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/bottomSheetDialogItemStyle"
+        android:drawableStart="@drawable/icon_cancel"
+        android:text="@string/cancel"/>
+
+</LinearLayout>

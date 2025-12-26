@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FuelLog" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/light_background</item>
+    </style>
+
+    <style name="Theme.FuelLog" parent="Base.Theme.FuelLog" />
+
+    <color name="colorPrimary">@color/light_background</color>
+    <color name="textColor">@color/dark_background</color>
+</resources>

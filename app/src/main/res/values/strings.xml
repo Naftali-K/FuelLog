@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">FuelLog</string>
+    <string name="version_xxx">Version: ***</string>
+    <string name="fuel_consumption">Fuel consumption</string>
+    <string name="list_of_transports">List of Transports</string>
+    <string name="fuel_liter_">Fuel Liter *:</string>
+    <string name="distance_km_">Distance Km *:</string>
+    <string name="fuel_price_">Fuel Price:</string>
+    <string name="count">Count</string>
+    <string name="liter_100_kilometer_">Liter/100 Kilometer:</string>
+    <string name="kilometer_1_liter_">Kilometer/1 Liter:</string>
+    <string name="cost_per_kilometer_">Cost per Kilometer:</string>
+    <string name="name">Name</string>
+    <string name="company">Company</string>
+    <string name="model">Model</string>
+    <string name="year">Year</string>
+    <string name="description">Description</string>
+    <string name="add_new_transport">Add New Transport</string>
+    <string name="edit_transport">Edit Transport</string>
+    <string name="update">Update</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="access">Access</string>
+    <string name="are_you_sure_you_want_to_delete_this">Are you sure you want to delete this?</string>
+</resources>
