@@ -4,4 +4,5 @@
     <dimen name="close_btn_size">24dp</dimen>
     <dimen name="info_image_size">42dp</dimen>
     <dimen name="dialog_corner_radius">16dp</dimen>
+    <dimen name="categories_corner_radius">8dp</dimen>
 </resources>

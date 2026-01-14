@@ -18,6 +18,12 @@
 <!--        <item name="android:layout_marginBottom">16dp</item>-->
     </style>
 
+    <style name="pageTitleStyle">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="button_style">
         <item name="android:background">@drawable/style_button</item>
         <item name="android:textAllCaps">false</item>
@@ -54,7 +60,32 @@
         <item name="android:gravity">top</item>
     </style>
 
-<!--    Bottom Dialog styles -->
+    <style name="nameValueStyle">
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="valueStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="categoryStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="categoryNotSelectedStyle" parent="categoryStyle">
+        <item name="android:background">@drawable/style_category_not_selected</item>
+    </style>
+
+    <style name="categorySelectedStyle" parent="categoryStyle">
+        <item name="android:background">@drawable/style_category_selected</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dark_background</item>
+    </style>
+
+<!--   TODO: Bottom Dialog styles -->
     <style name="customBottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/customBottomSheetStyle</item>
     </style>
@@ -85,7 +116,7 @@
         <item name="android:background">@color/gray_medium</item>
     </style>
 
-<!--    Dialog Style -->
+<!--   TODO:  Dialog Style -->
     <style name="dialogStyle">
         <item name="android:background">@drawable/style_dialog</item>
         <item name="android:padding">16dp</item>

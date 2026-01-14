@@ -29,9 +29,7 @@
             android:id="@+id/page_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textStyle="bold"
-            android:gravity="center"
+            style="@style/pageTitleStyle"
             android:text="@string/add_new_transport"/>
 
     </LinearLayout>
@@ -46,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Name Transport"/>
+        android:hint="@string/transport_name"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -59,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Company Name"/>
+        android:hint="@string/transport_company"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -72,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Model Transport"/>
+        android:hint="@string/transport_model"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -86,7 +84,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:maxLength="4"
-        android:hint="Year Made Transport"/>
+        android:hint="@string/transport_year"/>
 
     <TextView
         android:layout_width="match_parent"

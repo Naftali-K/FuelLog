@@ -23,4 +23,11 @@
     <string name="cancel">Cancel</string>
     <string name="access">Access</string>
     <string name="are_you_sure_you_want_to_delete_this">Are you sure you want to delete this?</string>
+    <string name="transport_name">Transport name</string>
+    <string name="transport_company">Transport Company</string>
+    <string name="transport_model">Transport Model</string>
+    <string name="transport_year">Transport Year</string>
+    <string name="transport_information">Transport Information</string>
+    <string name="fuel">Fuel</string>
+    <string name="other">Other</string>
 </resources>

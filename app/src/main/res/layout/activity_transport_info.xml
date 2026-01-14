@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal"
         style="@style/header_style"
-        android:layout_marginBottom="34dp">
+        android:layout_marginBottom="18dp">
 
         <ImageView
             android:id="@+id/back_btn"
@@ -29,13 +29,137 @@
             android:id="@+id/page_title_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="Transport Information"/>
+            style="@style/pageTitleStyle"
+            android:text="@string/transport_information"/>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/nameValueStyle"
+            android:text="@string/name"/>
+
+        <TextView
+            android:id="@+id/transport_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/valueStyle"
+            android:hint="@string/transport_name"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/nameValueStyle"
+            android:text="@string/company"/>
+
+        <TextView
+            android:id="@+id/transport_company_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/valueStyle"
+            android:hint="@string/transport_company"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/nameValueStyle"
+            android:text="@string/model"/>
+
+        <TextView
+            android:id="@+id/transport_model_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/valueStyle"
+            android:hint="@string/transport_model"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/nameValueStyle"
+            android:text="@string/year"/>
+
+        <TextView
+            android:id="@+id/transport_year_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/valueStyle"
+            android:hint="@string/transport_year"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/nameValueStyle"
+            android:text="@string/description"/>
+
+        <TextView
+            android:id="@+id/transport_description_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/valueStyle"
+            android:hint="@string/description"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/fuel_category_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/categorySelectedStyle"
+            android:text="@string/fuel"/>
+
+        <TextView
+            android:id="@+id/other_category_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/categoryNotSelectedStyle"
+            android:text="@string/other"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>

@@ -155,6 +155,10 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
     // TODO: Overrides -----------------------------------------------------------------------------
     override fun openItemIdInt(id: Int) {
         Log.d(TAG, "openItemIdInt: Open transport in Index: $id")
+        val intent = Intent(baseContext, TransportInfoActivity::class.java)
+            intent.putExtra(TransportInfoActivity.EXTRA_MANE, id.toString())
+
+        startActivity(intent)
     }
 
     override fun openItemIdString(id: String) {
