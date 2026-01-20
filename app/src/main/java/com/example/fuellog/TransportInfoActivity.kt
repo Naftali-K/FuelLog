@@ -1,5 +1,6 @@
 package com.example.fuellog
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -7,8 +8,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.TextViewCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.fuellog.fragments.FuelFragment
+import com.example.fuellog.fragments.OtherFragment
 import com.example.fuellog.models.Transport
 import com.example.fuellog.viewModels.TransportInfoViewModel
 
@@ -50,9 +55,18 @@ class TransportInfoActivity : AppCompatActivity() {
         setReferences()
         setViewModel()
         getCurrentTransport()
+        setFuelFragment()
 
         backBtn.setOnClickListener { view ->
             backPress()
+        }
+
+        fuelCategoryTv.setOnClickListener { view ->
+            setFuelFragment()
+        }
+
+        otherCategoryTv.setOnClickListener { view ->
+            setOtherFragment()
         }
     }
 
@@ -105,6 +119,51 @@ class TransportInfoActivity : AppCompatActivity() {
         transport?.description.let {
             transportDescriptionTv.text = it
         }
+    }
+
+    private fun setFuelFragment() {
+
+        val fragment = FuelFragment()
+        val bundle = Bundle().apply {
+            putString(FuelFragment.TRANSPORT_ID, transportId)
+        }
+        fragment.arguments = bundle
+
+        fragmentReplace(fragment, FuelFragment.FRAGMENT_TAG)
+
+        fuelCategoryTv.background = getDrawable(R.drawable.style_category_selected)
+        fuelCategoryTv.setTypeface(null, Typeface.BOLD)
+//        fuelCategoryTv.setTextAppearance(R.style.categorySelectedStyle)
+//        TextViewCompat.setTextAppearance(fuelCategoryTv, R.style.categorySelectedStyle)
+        otherCategoryTv.background = getDrawable(R.drawable.style_category_not_selected)
+        otherCategoryTv.setTypeface(null, Typeface.NORMAL)
+//        otherCategoryTv.setTextAppearance(R.style.categoryNotSelectedStyle)
+//        TextViewCompat.setTextAppearance(otherCategoryTv, R.style.categoryNotSelectedStyle)
+    }
+
+    private fun setOtherFragment() {
+        val fragment = OtherFragment()
+        val bundle = Bundle().apply {
+            putString(OtherFragment.TRANSPORT_ID, transportId)
+        }
+        fragment.arguments = bundle
+
+        fragmentReplace(fragment, OtherFragment.FRAGMENT_TAG)
+
+        fuelCategoryTv.background = getDrawable(R.drawable.style_category_not_selected)
+        fuelCategoryTv.setTypeface(null, Typeface.NORMAL)
+//        fuelCategoryTv.setTextAppearance(R.style.categoryNotSelectedStyle)
+//        TextViewCompat.setTextAppearance(fuelCategoryTv, R.style.categoryNotSelectedStyle)
+        otherCategoryTv.background = getDrawable(R.drawable.style_category_selected)
+        otherCategoryTv.setTypeface(null, Typeface.BOLD)
+//        otherCategoryTv.setTextAppearance(R.style.categorySelectedStyle)
+//        TextViewCompat.setTextAppearance(otherCategoryTv, R.style.categorySelectedStyle)
+    }
+
+    private fun fragmentReplace(fragment: Fragment, fragmentTag: String) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(frameLayout, fragment, fragmentTag).commit()
     }
 
     fun backPress() {
