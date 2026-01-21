@@ -131,14 +131,8 @@ class TransportInfoActivity : AppCompatActivity() {
 
         fragmentReplace(fragment, FuelFragment.FRAGMENT_TAG)
 
-        fuelCategoryTv.background = getDrawable(R.drawable.style_category_selected)
-        fuelCategoryTv.setTypeface(null, Typeface.BOLD)
-//        fuelCategoryTv.setTextAppearance(R.style.categorySelectedStyle)
-//        TextViewCompat.setTextAppearance(fuelCategoryTv, R.style.categorySelectedStyle)
-        otherCategoryTv.background = getDrawable(R.drawable.style_category_not_selected)
-        otherCategoryTv.setTypeface(null, Typeface.NORMAL)
-//        otherCategoryTv.setTextAppearance(R.style.categoryNotSelectedStyle)
-//        TextViewCompat.setTextAppearance(otherCategoryTv, R.style.categoryNotSelectedStyle)
+        setActive(fuelCategoryTv, true)
+        setActive(otherCategoryTv, false)
     }
 
     private fun setOtherFragment() {
@@ -150,14 +144,18 @@ class TransportInfoActivity : AppCompatActivity() {
 
         fragmentReplace(fragment, OtherFragment.FRAGMENT_TAG)
 
-        fuelCategoryTv.background = getDrawable(R.drawable.style_category_not_selected)
-        fuelCategoryTv.setTypeface(null, Typeface.NORMAL)
-//        fuelCategoryTv.setTextAppearance(R.style.categoryNotSelectedStyle)
-//        TextViewCompat.setTextAppearance(fuelCategoryTv, R.style.categoryNotSelectedStyle)
-        otherCategoryTv.background = getDrawable(R.drawable.style_category_selected)
-        otherCategoryTv.setTypeface(null, Typeface.BOLD)
-//        otherCategoryTv.setTextAppearance(R.style.categorySelectedStyle)
-//        TextViewCompat.setTextAppearance(otherCategoryTv, R.style.categorySelectedStyle)
+        setActive(fuelCategoryTv, false)
+        setActive(otherCategoryTv, true)
+    }
+
+    private fun setActive(textView: TextView, active: Boolean) {
+        if (active) {
+            textView.background = getDrawable(R.drawable.style_category_selected)
+            textView.setTypeface(null, Typeface.BOLD)
+        } else {
+            textView.background = getDrawable(R.drawable.style_category_not_selected)
+            textView.setTypeface(null, Typeface.NORMAL)
+        }
     }
 
     private fun fragmentReplace(fragment: Fragment, fragmentTag: String) {

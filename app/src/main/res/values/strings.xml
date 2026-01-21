@@ -30,6 +30,7 @@
     <string name="transport_information">Transport Information</string>
     <string name="fuel">Fuel</string>
     <string name="other">Other</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kilometers_">Kilometers:</string>
+    <string name="liters_">Liters:</string>
+    <string name="date">Date</string>
 </resources>
