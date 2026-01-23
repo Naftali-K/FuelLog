@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuellog.R
 import com.example.fuellog.adapters.FuelConsumptionRecyclerViewAdapter
+import com.example.fuellog.dialogs.AddFuelConsumptionDialog
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.viewModels.FuelFragmentViewModel
 
@@ -42,7 +43,13 @@ class FuelFragment : Fragment() {
 
         transportID = arguments?.getString(TRANSPORT_ID)
 //        Log.d(TAG, "onCreateView: FuelFragment Transport ID: $transportID")
-        viewModel.getThisTransportFuel(transportID)
+        transportID.let { text ->
+            viewModel.getThisTransportFuel(transportID)
+        }
+
+        addFuelConsumptionIv.setOnClickListener { v ->
+            openAddFuelConsumptionDialog()
+        }
 
         return view
     }
@@ -68,5 +75,15 @@ class FuelFragment : Fragment() {
 
             adapter.setFuelConsumptionList(item)
         })
+    }
+
+    private fun openAddFuelConsumptionDialog() {
+        if (transportID == null) {
+            return
+        }
+
+        val dialog = AddFuelConsumptionDialog(transportID!!)
+        dialog.show(parentFragmentManager, AddFuelConsumptionDialog.DIALOG_TAG)
+
     }
 }
