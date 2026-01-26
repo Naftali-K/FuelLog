@@ -33,5 +33,6 @@
     <string name="kilometers_">Kilometers:</string>
     <string name="liters_">Liters:</string>
     <string name="date">Date</string>
+    <string name="date_">Date:</string>
     <string name="add">Add</string>
 </resources>

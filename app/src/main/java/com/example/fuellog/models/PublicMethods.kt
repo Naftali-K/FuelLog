@@ -1,5 +1,10 @@
 package com.example.fuellog.models
 
+import android.icu.util.Calendar
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 /**
  * @Author: naftalikomarovski
  * @Date: 2025/11/27
@@ -28,6 +33,50 @@ class PublicMethods {
             val cost = consumptionFor1Km * price
 
             return cost
+        }
+
+        fun getCurrentMilliseconds(): Long {
+            val  millisecondNow: Long = System.currentTimeMillis()
+            return millisecondNow
+        }
+
+        fun getCurrentYearFromMilliseconds(milliseconds: Long): Int {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            return year
+        }
+
+        fun getCurrentMonthFromMilliseconds(milliseconds: Long): Int {
+            val calendar = Calendar.getInstance()
+            val month = calendar.get(Calendar.MONTH) + 1
+            return month
+        }
+
+        fun getCurrentDayOfMonthFromMilliseconds(milliseconds: Long): Int {
+            val calendar = Calendar.getInstance()
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            return day
+        }
+
+        fun getDateByStringFormat(formatString: String, milliseconds: Long): String {
+            val year = getCurrentYearFromMilliseconds(milliseconds)
+            val month = getCurrentMonthFromMilliseconds(milliseconds)
+            val day = getCurrentDayOfMonthFromMilliseconds(milliseconds)
+
+            val dateString = formatString.replace("yyyy", year.toString())
+                .replace("mm", month.toString())
+                .replace("dd", day.toString())
+
+            return dateString
+        }
+
+        fun getDateByPattern(pattern: String, milliseconds: Long): String {
+            val date = Date(milliseconds)
+
+            val formatter = SimpleDateFormat(pattern, Locale.getDefault())
+            val formattedDate: String = formatter.format(date)
+
+            return formattedDate
         }
     }
 

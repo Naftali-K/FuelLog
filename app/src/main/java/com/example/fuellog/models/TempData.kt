@@ -15,9 +15,9 @@ class TempData {
         )
 
         val fuelConsumptionList = mutableListOf(
-            FuelConsumption(0, 0, 3489043376, 454, 42),
-            FuelConsumption(0, 0, 35354345, 547, 48),
-            FuelConsumption(0, 0, 4353564546, 632, 52),
+            FuelConsumption(0, 0, 3489043376, 454f, 42f),
+            FuelConsumption(0, 0, 35354345, 547f, 48f),
+            FuelConsumption(0, 0, 4353564546, 632f, 52f),
         )
     }
 }
