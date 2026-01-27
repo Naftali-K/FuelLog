@@ -13,5 +13,7 @@ data class Transport(
     var year: Int?,
     var description: String?
 ) {
-
+    override fun toString(): String {
+        return "Transport(id=$id, name=$name, company=$company, model=$model, year=$year, description=$description)"
+    }
 }

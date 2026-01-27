@@ -13,5 +13,7 @@ class FuelConsumption(
     var liters: Float,
     var fuelPrice: Float = 0f
 ) {
-
+    override fun toString(): String {
+        return "FuelConsumption(id=$id, transportID=$transportID, date=$date, kilometers=$kilometers, liters=$liters, fuelPrice=$fuelPrice)"
+    }
 }

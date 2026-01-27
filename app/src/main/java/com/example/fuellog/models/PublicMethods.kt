@@ -42,18 +42,24 @@ class PublicMethods {
 
         fun getCurrentYearFromMilliseconds(milliseconds: Long): Int {
             val calendar = Calendar.getInstance()
+                calendar.timeInMillis = milliseconds
+
             val year = calendar.get(Calendar.YEAR)
             return year
         }
 
         fun getCurrentMonthFromMilliseconds(milliseconds: Long): Int {
             val calendar = Calendar.getInstance()
+            calendar.timeInMillis = milliseconds
+
             val month = calendar.get(Calendar.MONTH) + 1
             return month
         }
 
         fun getCurrentDayOfMonthFromMilliseconds(milliseconds: Long): Int {
             val calendar = Calendar.getInstance()
+            calendar.timeInMillis = milliseconds
+
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             return day
         }

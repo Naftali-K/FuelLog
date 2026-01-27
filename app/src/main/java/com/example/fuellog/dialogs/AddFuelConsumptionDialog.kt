@@ -17,6 +17,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.fuellog.R
+import com.example.fuellog.models.FuelConsumption
+import com.example.fuellog.models.PublicMethods
 
 /**
  * @Author: naftalikomarovski
@@ -37,15 +39,18 @@ class AddFuelConsumptionDialog(transportID: String): DialogFragment() {
     private lateinit var fuelPriceEt: EditText
     private lateinit var datePickerTv: TextView
     private lateinit var addBtn: Button
+    private val calendar = Calendar.getInstance()
 
     private val dateListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-        val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-        val millisecond = calendar.get(Calendar.MILLISECOND)
+        val millisecond = calendar.timeInMillis
 
-        Log.d(TAG, "setDateListener: Selected Year: $year -> Month: $month -> Day: $dayOfMonth -> Millisecond: $millisecond")
+        val dateString = PublicMethods.getDateByStringFormat(getString(R.string.date_format), millisecond)
+
+//        Log.d(TAG, "setDateListener: Selected Year: $year -> Month: $month -> Day: $dayOfMonth -> Millisecond: $millisecond -> Date format: $dateString")
+        datePickerTv.text = dateString
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -58,6 +63,7 @@ class AddFuelConsumptionDialog(transportID: String): DialogFragment() {
         val builder = AlertDialog.Builder(activity)
         builder.setView(view)
         setReferences(view)
+        setDefaultDate()
 
         closeBtnIv.setOnClickListener {
             dismiss()
@@ -67,7 +73,29 @@ class AddFuelConsumptionDialog(transportID: String): DialogFragment() {
             openDatePicker()
         }
 
+        addBtn.setOnClickListener {
+            val date = calendar.timeInMillis
+            val kilometers = distanceEt.text.toString()
+            var kilometersFloat = 0f
+            if (kilometers != null && !kilometers.isEmpty()) {
+                kilometersFloat = kilometers.toFloat()
+            }
 
+            val liters = fuelEt.text.toString()
+            var litersFloat = 0f
+            if (liters != null && !liters.isEmpty()) {
+                litersFloat = liters.toFloat()
+            }
+
+            val price = fuelPriceEt.text.toString()
+            var priceFloat = 0f
+            if (price != null && !price.isEmpty()) {
+                priceFloat = price.toFloat()
+            }
+
+            val newFuelConsumption = FuelConsumption(0, 0, date, kilometersFloat, litersFloat, priceFloat)
+            Log.d(TAG, "onCreateDialog: New FuelConsumption: ${newFuelConsumption.toString()}")
+        }
 
         return builder.create()
     }
@@ -86,8 +114,13 @@ class AddFuelConsumptionDialog(transportID: String): DialogFragment() {
         addBtn = view.findViewById(R.id.add_btn)
     }
 
+    private fun setDefaultDate() {
+        val currentMillisecond = PublicMethods.getCurrentMilliseconds()
+        val dateString = PublicMethods.getDateByStringFormat(getString(R.string.date_format), currentMillisecond)
+        datePickerTv.text = dateString
+    }
+
     private fun openDatePicker() {
-        val calendar = Calendar.getInstance()
 
         DatePickerDialog(requireActivity(), dateListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(
             Calendar.DAY_OF_MONTH)).show()
