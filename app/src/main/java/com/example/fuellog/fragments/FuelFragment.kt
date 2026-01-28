@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuellog.R
 import com.example.fuellog.adapters.FuelConsumptionRecyclerViewAdapter
 import com.example.fuellog.dialogs.AddFuelConsumptionDialog
+import com.example.fuellog.interfaces.AddUpdateListener
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.viewModels.FuelFragmentViewModel
 
@@ -34,6 +36,7 @@ class FuelFragment() : Fragment() {
     private lateinit var adapter: FuelConsumptionRecyclerViewAdapter
 
     private lateinit var viewModel: FuelFragmentViewModel
+    private lateinit var dialog: AddFuelConsumptionDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -76,6 +79,15 @@ class FuelFragment() : Fragment() {
 
             adapter.setFuelConsumptionList(item)
         })
+
+        viewModel.isAddedFuelConsumption().observe(this, Observer<Boolean> { item ->
+            if (item) {
+                dialog.dismiss()
+                return@Observer
+            }
+
+            Toast.makeText(context, "Some problem with add new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun openAddFuelConsumptionDialog() {
@@ -83,8 +95,22 @@ class FuelFragment() : Fragment() {
             return
         }
 
-        val dialog = AddFuelConsumptionDialog(transportID!!)
+        dialog = AddFuelConsumptionDialog(transportID!!, object : AddUpdateListener<FuelConsumption> {
+            override fun add(item: FuelConsumption) {
+                addNewFuelConsumption(item)
+            }
+
+            override fun update(item: FuelConsumption) {
+//                TODO("Not yet implemented")
+            }
+
+        })
+
         dialog.show(parentFragmentManager, AddFuelConsumptionDialog.DIALOG_TAG)
 
+    }
+
+    private fun addNewFuelConsumption(item: FuelConsumption) {
+        viewModel.addNewFuelConsumption(item)
     }
 }

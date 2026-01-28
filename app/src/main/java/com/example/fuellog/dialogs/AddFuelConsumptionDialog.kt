@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.fuellog.R
+import com.example.fuellog.interfaces.AddUpdateListener
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.models.PublicMethods
 
@@ -25,7 +26,7 @@ import com.example.fuellog.models.PublicMethods
  * @Date: 2026/01/23
  */
 
-class AddFuelConsumptionDialog(transportID: String): DialogFragment() {
+class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateListener<FuelConsumption>): DialogFragment() {
 
     companion object {
         const val DIALOG_TAG = "AddFuelConsumptionDialog"
@@ -95,6 +96,8 @@ class AddFuelConsumptionDialog(transportID: String): DialogFragment() {
 
             val newFuelConsumption = FuelConsumption(0, 0, date, kilometersFloat, litersFloat, priceFloat)
             Log.d(TAG, "onCreateDialog: New FuelConsumption: ${newFuelConsumption.toString()}")
+
+            callback.add(newFuelConsumption)
         }
 
         return builder.create()

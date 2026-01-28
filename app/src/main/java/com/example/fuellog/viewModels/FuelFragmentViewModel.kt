@@ -29,4 +29,19 @@ class FuelFragmentViewModel: ViewModel() {
         val fuelList = TempData.fuelConsumptionList
         fuelCurrentTransport.value = fuelList
     }
+
+
+    private val isAddedNewFuelConsumption: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun isAddedFuelConsumption(): LiveData<Boolean> {
+        return isAddedNewFuelConsumption
+    }
+
+    fun addNewFuelConsumption(item: FuelConsumption) {
+        if (item == null) {
+            return
+        }
+
+        val addedNewFuelConsumption = TempData.fuelConsumptionList.add(item)
+    }
 }
