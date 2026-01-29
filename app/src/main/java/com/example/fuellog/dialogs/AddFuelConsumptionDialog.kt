@@ -94,7 +94,7 @@ class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateL
                 priceFloat = price.toFloat()
             }
 
-            val newFuelConsumption = FuelConsumption(0, 0, date, kilometersFloat, litersFloat, priceFloat)
+            val newFuelConsumption = FuelConsumption(0, transportID.toInt(), date, kilometersFloat, litersFloat, priceFloat)
             Log.d(TAG, "onCreateDialog: New FuelConsumption: ${newFuelConsumption.toString()}")
 
             callback.add(newFuelConsumption)

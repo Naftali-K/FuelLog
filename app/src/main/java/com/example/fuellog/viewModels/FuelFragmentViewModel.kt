@@ -43,5 +43,6 @@ class FuelFragmentViewModel: ViewModel() {
         }
 
         val addedNewFuelConsumption = TempData.fuelConsumptionList.add(item)
+        isAddedNewFuelConsumption.value = addedNewFuelConsumption
     }
 }

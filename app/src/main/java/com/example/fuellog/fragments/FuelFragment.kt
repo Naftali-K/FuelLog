@@ -81,8 +81,10 @@ class FuelFragment() : Fragment() {
         })
 
         viewModel.isAddedFuelConsumption().observe(this, Observer<Boolean> { item ->
+
             if (item) {
                 dialog.dismiss()
+                viewModel.getThisTransportFuel(transportID)
                 return@Observer
             }
 

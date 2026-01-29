@@ -17,8 +17,10 @@ import com.example.fuellog.models.PublicMethods
 
 class FuelConsumptionRecyclerViewAdapter(
     private var fuelConsumptionList: List<FuelConsumption> = ArrayList<FuelConsumption>()
-):
-    RecyclerView.Adapter<FuelConsumptionRecyclerViewAdapter.FuelConsumptionRecyclerViewHolder>() {
+): RecyclerView.Adapter<FuelConsumptionRecyclerViewAdapter.FuelConsumptionRecyclerViewHolder>() {
+
+    lateinit var contextParent: Context
+
 
     fun setFuelConsumptionList(itemList: List<FuelConsumption>) {
         this.fuelConsumptionList = itemList
@@ -26,12 +28,13 @@ class FuelConsumptionRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FuelConsumptionRecyclerViewHolder {
+        contextParent = parent.context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_fuel_consumption_item, parent, false)
         return FuelConsumptionRecyclerViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: FuelConsumptionRecyclerViewHolder, position: Int) {
-        holder.bind(fuelConsumptionList.get(position), position)
+        holder.bind(fuelConsumptionList.get(position), contextParent, position)
     }
 
     override fun getItemCount(): Int {
@@ -55,8 +58,11 @@ class FuelConsumptionRecyclerViewAdapter(
             kmTo1LiterTv = itemView.findViewById(R.id.km_to_1_liter_tv)
         }
 
-        fun bind(fuelConsumption: FuelConsumption, position: Int) {
-            dateTv.text = fuelConsumption.date.toString()
+        fun bind(fuelConsumption: FuelConsumption, contextParent: Context, position: Int) {
+            val dateString = PublicMethods.getDateByStringFormat(contextParent.getString(R.string.date_format), fuelConsumption.date)
+
+            dateTv.text = dateString
+
             kilometersValueTv.text = fuelConsumption.kilometers.toString()
             litersValueTv.text = fuelConsumption.liters.toString()
 

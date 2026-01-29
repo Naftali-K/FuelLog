@@ -8,7 +8,9 @@
     <string name="fuel_price_">Fuel Price:</string>
     <string name="count">Count</string>
     <string name="liter_100_kilometer_">Liter/100 Kilometer:</string>
+    <string name="l_100_km_">L/100 Km:</string>
     <string name="kilometer_1_liter_">Kilometer/1 Liter:</string>
+    <string name="km_1_l_">Km/1 L:</string>
     <string name="cost_per_kilometer_">Cost per Kilometer:</string>
     <string name="name">Name</string>
     <string name="company">Company</string>
