@@ -31,6 +31,10 @@ class FuelFragmentViewModel: ViewModel() {
     }
 
 
+
+
+
+
     private val isAddedNewFuelConsumption: MutableLiveData<Boolean> = MutableLiveData()
 
     fun isAddedFuelConsumption(): LiveData<Boolean> {
@@ -44,5 +48,26 @@ class FuelFragmentViewModel: ViewModel() {
 
         val addedNewFuelConsumption = TempData.fuelConsumptionList.add(item)
         isAddedNewFuelConsumption.value = addedNewFuelConsumption
+    }
+
+    private val isCurrentFuelConsumptionDeleted: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun isFuelConsumptionDeleted(): LiveData<Boolean> {
+        return isCurrentFuelConsumptionDeleted
+    }
+
+    fun deleteFuelConsumption(id: String) {
+        if (id == null || id.isEmpty() ) {
+            return
+        }
+
+        val idInt: Int = id.toInt()
+        val removedItem = TempData.fuelConsumptionList.removeAt(idInt)
+
+        if (removedItem == null) {
+            return
+        }
+
+        isCurrentFuelConsumptionDeleted.value = true
     }
 }

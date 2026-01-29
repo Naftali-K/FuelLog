@@ -14,7 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuellog.R
 import com.example.fuellog.adapters.FuelConsumptionRecyclerViewAdapter
+import com.example.fuellog.dialogs.AdapterActionsBottomSheetDialog
 import com.example.fuellog.dialogs.AddFuelConsumptionDialog
+import com.example.fuellog.interfaces.AdapterActionListener
+import com.example.fuellog.interfaces.AdapterActionMenuListener
 import com.example.fuellog.interfaces.AddUpdateListener
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.viewModels.FuelFragmentViewModel
@@ -65,7 +68,24 @@ class FuelFragment() : Fragment() {
     }
 
     private fun setAdapter() {
-        adapter = FuelConsumptionRecyclerViewAdapter()
+        adapter = FuelConsumptionRecyclerViewAdapter(callback =  object : AdapterActionListener {
+            override fun openItemIdInt(id: Int) {
+//                TODO("Not yet implemented")
+            }
+
+            override fun openItemIdString(id: String) {
+//                TODO("Not yet implemented")
+            }
+
+            override fun openItemIntBottomSheetDialog(id: Int) {
+                openAdapterActionDialog(id)
+            }
+
+            override fun openItemStringBottomSheetDialog(id: String) {
+//                TODO("Not yet implemented")
+            }
+
+        })
         fuelConsumptionRecyclerView.adapter = adapter
     }
 
@@ -89,6 +109,13 @@ class FuelFragment() : Fragment() {
             }
 
             Toast.makeText(context, "Some problem with add new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.isFuelConsumptionDeleted().observe(this, Observer<Boolean> { item ->
+            if (item) {
+                viewModel.getThisTransportFuel(transportID)
+                return@Observer
+            }
         })
     }
 
@@ -114,5 +141,24 @@ class FuelFragment() : Fragment() {
 
     private fun addNewFuelConsumption(item: FuelConsumption) {
         viewModel.addNewFuelConsumption(item)
+    }
+
+    private fun openAdapterActionDialog(id: Int) {
+        val adapterDialog = AdapterActionsBottomSheetDialog(object : AdapterActionMenuListener {
+            override fun editItemId() {
+//                TODO("Not yet implemented")
+            }
+
+            override fun deleteItemId() {
+                deleteItem(id)
+            }
+
+        })
+
+        adapterDialog.show(parentFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
+    }
+
+    private fun deleteItem(id: Int) {
+        viewModel.deleteFuelConsumption(id.toString())
     }
 }

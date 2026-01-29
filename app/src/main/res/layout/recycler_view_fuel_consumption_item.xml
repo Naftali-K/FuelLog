@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/recycler_view_item_style"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/item_linear_layout">
 
     <TextView
         android:id="@+id/date_tv"
