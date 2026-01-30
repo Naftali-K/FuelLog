@@ -20,13 +20,14 @@ import com.example.fuellog.R
 import com.example.fuellog.interfaces.AddUpdateListener
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.models.PublicMethods
+import com.example.fuellog.models.TempData
 
 /**
  * @Author: naftalikomarovski
  * @Date: 2026/01/23
  */
 
-class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateListener<FuelConsumption>): DialogFragment() {
+class AddFuelConsumptionDialog(val transportID: String, val idItemString: String? = null, val callback: AddUpdateListener<FuelConsumption>): DialogFragment() {
 
     companion object {
         const val DIALOG_TAG = "AddFuelConsumptionDialog"
@@ -41,6 +42,7 @@ class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateL
     private lateinit var datePickerTv: TextView
     private lateinit var addBtn: Button
     private val calendar = Calendar.getInstance()
+    private var isUpdate = false
 
     private val dateListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
         calendar.set(Calendar.YEAR, year)
@@ -64,7 +66,8 @@ class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateL
         val builder = AlertDialog.Builder(activity)
         builder.setView(view)
         setReferences(view)
-        setDefaultDate()
+        setDefaultDate(PublicMethods.getCurrentMilliseconds())
+        setValuesForUpdate(idItemString)
 
         closeBtnIv.setOnClickListener {
             dismiss()
@@ -95,7 +98,12 @@ class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateL
             }
 
             val newFuelConsumption = FuelConsumption(0, transportID.toInt(), date, kilometersFloat, litersFloat, priceFloat)
-            Log.d(TAG, "onCreateDialog: New FuelConsumption: ${newFuelConsumption.toString()}")
+//            Log.d(TAG, "onCreateDialog: New FuelConsumption: ${newFuelConsumption.toString()}")
+
+            if (isUpdate) {
+                callback.update(newFuelConsumption)
+                return@setOnClickListener
+            }
 
             callback.add(newFuelConsumption)
         }
@@ -117,10 +125,28 @@ class AddFuelConsumptionDialog(val transportID: String, val callback: AddUpdateL
         addBtn = view.findViewById(R.id.add_btn)
     }
 
-    private fun setDefaultDate() {
-        val currentMillisecond = PublicMethods.getCurrentMilliseconds()
-        val dateString = PublicMethods.getDateByStringFormat(getString(R.string.date_format), currentMillisecond)
+    private fun setDefaultDate(milliseconds: Long) {
+        calendar.timeInMillis = milliseconds
+        val dateString = PublicMethods.getDateByStringFormat(getString(R.string.date_format), milliseconds)
         datePickerTv.text = dateString
+    }
+
+    private fun setValuesForUpdate(idItemString: String? = null) {
+        if (idItemString == null || idItemString.isEmpty()) {
+            return
+        }
+
+        val idInt = idItemString.toInt()
+        val item = TempData.fuelConsumptionList.get(idInt)
+
+        fuelEt.setText(item.liters.toString())
+        distanceEt.setText(item.kilometers.toString())
+        fuelPriceEt.setText(item.fuelPrice.toString())
+        setDefaultDate(item.date)
+
+        addBtn.text = getString(R.string.update)
+
+        isUpdate = true
     }
 
     private fun openDatePicker() {

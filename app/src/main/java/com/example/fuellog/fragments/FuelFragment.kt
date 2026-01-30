@@ -1,6 +1,5 @@
 package com.example.fuellog.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -55,7 +54,7 @@ class FuelFragment() : Fragment() {
         }
 
         addFuelConsumptionIv.setOnClickListener { v ->
-            openAddFuelConsumptionDialog()
+            openAddUpdateFuelConsumptionDialog()
         }
 
         return view
@@ -111,6 +110,16 @@ class FuelFragment() : Fragment() {
             Toast.makeText(context, "Some problem with add new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
         })
 
+        viewModel.isUpdatedFuelConsumption().observe(this, Observer<Boolean> { item ->
+            if (item) {
+                dialog.dismiss()
+                adapter.notifyDataSetChanged()
+                return@Observer
+            }
+
+            Toast.makeText(context, "Some problem with update new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
+        })
+
         viewModel.isFuelConsumptionDeleted().observe(this, Observer<Boolean> { item ->
             if (item) {
                 viewModel.getThisTransportFuel(transportID)
@@ -119,18 +128,20 @@ class FuelFragment() : Fragment() {
         })
     }
 
-    private fun openAddFuelConsumptionDialog() {
+    private fun openAddUpdateFuelConsumptionDialog(idString: String? = null) {
         if (transportID == null) {
             return
         }
 
-        dialog = AddFuelConsumptionDialog(transportID!!, object : AddUpdateListener<FuelConsumption> {
+        dialog = AddFuelConsumptionDialog(transportID!!, idString, callback =  object : AddUpdateListener<FuelConsumption> {
             override fun add(item: FuelConsumption) {
+                Log.d(TAG, "add: New FuelConsumption: ${item}")
                 addNewFuelConsumption(item)
             }
 
             override fun update(item: FuelConsumption) {
-//                TODO("Not yet implemented")
+                Log.d(TAG, "update: Update item ID: $idString -> Item: $item")
+                updateFuelConsumption(idString, item)
             }
 
         })
@@ -143,14 +154,24 @@ class FuelFragment() : Fragment() {
         viewModel.addNewFuelConsumption(item)
     }
 
+    private fun updateFuelConsumption(idString: String?, item: FuelConsumption) {
+        if (idString == null || idString.isEmpty()) {
+            return
+        }
+
+        viewModel.updateFuelConsumption(idString, item)
+    }
+
     private fun openAdapterActionDialog(id: Int) {
         val adapterDialog = AdapterActionsBottomSheetDialog(object : AdapterActionMenuListener {
             override fun editItemId() {
-//                TODO("Not yet implemented")
+                val idString = id.toString()
+                openAddUpdateFuelConsumptionDialog(idString)
             }
 
             override fun deleteItemId() {
                 deleteItem(id)
+                // TODO: Add Access dialog
             }
 
         })

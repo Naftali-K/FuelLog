@@ -9,8 +9,8 @@ class FuelConsumption(
     var id: Int,
     var transportID: Int,
     var date: Long,
-    var kilometers: Float,
-    var liters: Float,
+    var kilometers: Float = 0f,
+    var liters: Float = 0f,
     var fuelPrice: Float = 0f
 ) {
     override fun toString(): String {
