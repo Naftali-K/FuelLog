@@ -13,8 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuellog.R
 import com.example.fuellog.adapters.FuelConsumptionRecyclerViewAdapter
+import com.example.fuellog.dialogs.AccessDialog
 import com.example.fuellog.dialogs.AdapterActionsBottomSheetDialog
 import com.example.fuellog.dialogs.AddFuelConsumptionDialog
+import com.example.fuellog.interfaces.AccessCanselListener
 import com.example.fuellog.interfaces.AdapterActionListener
 import com.example.fuellog.interfaces.AdapterActionMenuListener
 import com.example.fuellog.interfaces.AddUpdateListener
@@ -170,13 +172,26 @@ class FuelFragment() : Fragment() {
             }
 
             override fun deleteItemId() {
-                deleteItem(id)
-                // TODO: Add Access dialog
+                openAccessDialog(id)
             }
 
         })
 
         adapterDialog.show(parentFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
+    }
+
+    private fun openAccessDialog(id: Int) {
+        val dialog = AccessDialog(R.string.are_you_sure_you_want_to_delete_this, object : AccessCanselListener {
+            override fun access() {
+                deleteItem(id)
+            }
+
+            override fun cansel() {
+
+            }
+        })
+
+        dialog.show(parentFragmentManager, AccessDialog.DIALOG_TAG)
     }
 
     private fun deleteItem(id: Int) {
