@@ -10,6 +10,7 @@ material = "1.10.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
 swipeRefresh = "1.2.0-alpha01"
+roomVersion = "2.8.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -21,8 +22,11 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 swiperefreshlayout = {module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref= "swipeRefresh"}
+roomRuntime = {module= "androidx.room:room-runtime", version.ref= "roomVersion"}
+roomCompiler = {module= "androidx.room:room-compiler", version.ref= "roomVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+roomPlugin = {id = "com.google.devtools.ksp"}
 
