@@ -14,6 +14,6 @@ interface FuelConsumptionDAO {
     @Query("SELECT * FROM ${FuelConsumption.TABLE_NAME}")
     fun getAllFuelConsumption(): List<FuelConsumption>
 
-    @Query("SELECT * FROM ${FuelConsumption.TABLE_NAME} WHERE transportID=:transportID")
-    fun getTransportFuelConsumption(transportID: Int)
+//    @Query("SELECT * FROM ${FuelConsumption.TABLE_NAME} WHERE transportID=:transportID")
+//    fun getTransportFuelConsumption(transportID: Int)
 }

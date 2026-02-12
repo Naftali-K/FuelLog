@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.roomPlugin)
+//    alias(libs.plugins.ksp)
 }
 
 android {
@@ -36,6 +37,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+//    kotlin {
+//        compilerOptions {
+//            optIn.add("kotlin.RequiresOptIn")
+//        }
+//    }
 }
 
 dependencies {
