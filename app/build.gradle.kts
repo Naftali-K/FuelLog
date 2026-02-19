@@ -57,6 +57,12 @@ dependencies {
 
     implementation(libs.swiperefreshlayout)
 
+    // Room dependencies
     implementation(libs.roomRuntime)
     ksp(libs.roomCompiler)
+    implementation(libs.lifeCycleViewModel) // https://developer.android.com/jetpack/androidx/releases/lifecycle
+
+    // Stetho dependencies - https://github.com/facebook/stetho
+    implementation(libs.stetho)
+    implementation(libs.stethoOkHTTP)
 }

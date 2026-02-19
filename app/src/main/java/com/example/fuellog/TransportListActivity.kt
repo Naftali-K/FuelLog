@@ -92,6 +92,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
 
     fun setViewModel() {
         viewModel = ViewModelProvider(this).get(TransportListViewModel::class.java)
+        viewModel.initViewModel(this)
 
         viewModel.thisTransportList().observe(this, Observer<List<Transport>> {
 
@@ -100,6 +101,8 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
             if (it == null) {
                 return@Observer
             }
+
+            Log.d(TAG, "setViewModel: Transport List: $it")
 
             adapter.setTransportList(it)
             adapter.notifyDataSetChanged()

@@ -13,6 +13,8 @@ import com.example.fuellog.models.Transport
  * @Date: 2026/02/06
  */
 
+// https://youtu.be/YOFyhC4sE8A?si=71tV4zx3ElsfV_At - lesson video
+
 @Database(entities = [Transport::class, FuelConsumption::class], version = 1, exportSchema = false)
 abstract class ApplicationDataBase: RoomDatabase() {
     abstract fun transportDAO(): TransportDAO

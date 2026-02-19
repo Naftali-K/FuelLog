@@ -23,4 +23,12 @@
         style="@style/button_style"
         android:text="@string/list_of_transports"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/test_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/button_style"
+        android:text="Test button all transport"
+        android:visibility="gone"/>
+
 </LinearLayout>

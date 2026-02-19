@@ -1,10 +1,16 @@
 package com.example.fuellog.viewModels
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.fuellog.DBRoom.ApplicationDataBase
+import com.example.fuellog.DBRoom.TransportDAO
 import com.example.fuellog.models.TempData
 import com.example.fuellog.models.Transport
+import kotlinx.coroutines.launch
 
 /**
  * @Author: naftalikomarovski
@@ -13,6 +19,10 @@ import com.example.fuellog.models.Transport
 
 class AddEditTransportViewModel: ViewModel() {
 
+    private val TAG: String = "Test_code"
+    private lateinit var context: Context
+    private lateinit var db: ApplicationDataBase
+    private lateinit var transportDAO: TransportDAO
     private val isFocusName: MutableLiveData<Boolean> = MutableLiveData()
     private val isFocusCompany: MutableLiveData<Boolean> = MutableLiveData()
     private val isFocusModel: MutableLiveData<Boolean> = MutableLiveData()
@@ -21,6 +31,12 @@ class AddEditTransportViewModel: ViewModel() {
     private val isCurrentTransportUpdated: MutableLiveData<Boolean> = MutableLiveData(false)
     private val isCurrentTransportDeleted: MutableLiveData<Boolean> = MutableLiveData()
     val isAddedNewTransport: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun initViewModel(context: Context) {
+        this.context = context
+        db = ApplicationDataBase.getInstance(context)
+        transportDAO = db.transportDAO()
+    }
 
     fun isFocusNameEt(): LiveData<Boolean> {
         return isFocusName
@@ -87,14 +103,17 @@ class AddEditTransportViewModel: ViewModel() {
     }
 
     fun addNewTransport(transport: Transport) {
-        val addedTransport = TempData.transportList.add(transport)
+        viewModelScope.launch {
+            val transportID = transportDAO.addTransport(transport)
+            Log.d(TAG, "addNewTransport: Added transport ID: $transportID")
 
-        if (addedTransport) {
+            if (transportID < 0) {
+                isAddedNewTransport.value = false
+                return@launch
+            }
+
             isAddedNewTransport.value = true
-            return
         }
-
-        isAddedNewTransport.value = false
     }
 
     fun getThisTransport(id: String?) {

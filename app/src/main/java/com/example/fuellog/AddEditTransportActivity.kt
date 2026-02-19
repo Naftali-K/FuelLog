@@ -88,6 +88,7 @@ class AddEditTransportActivity : AppCompatActivity() {
 
     fun setViewModel() {
         viewModel = ViewModelProvider(this).get(AddEditTransportViewModel::class.java)
+        viewModel.initViewModel(baseContext)
 
         viewModel.isFocusNameEt().observe(this, Observer<Boolean> { item ->
             if (item) {
