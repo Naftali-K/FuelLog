@@ -29,4 +29,7 @@ interface TransportDAO {
 
     @Delete
     suspend fun deleteTransport(transport: Transport)
+
+    @Query("DELETE FROM ${Transport.TABLE_NAME} WHERE id=:id")
+    suspend fun deleteTransportByID(id: Int): Int
 }

@@ -36,7 +36,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
     val addEditTransportActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
         if (result.resultCode == RESULT_OK) {
-            Log.d(TAG, "Activity Result: Update successful, add new transport")
+//            Log.d(TAG, "Activity Result: Update successful, add new transport")
             Toast.makeText(baseContext, "Successful added new transport", Toast.LENGTH_SHORT).show()
             viewModel.getTransportList()
             return@registerForActivityResult
@@ -45,11 +45,13 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         if (result.resultCode == AddEditTransportActivity.RESULT_UPDATED) {
             Toast.makeText(baseContext, "Successful update information of transport", Toast.LENGTH_SHORT).show()
             viewModel.getTransportList()
+            return@registerForActivityResult
         }
 
         if (result.resultCode == AddEditTransportActivity.RESULT_DELETE) {
             Toast.makeText(baseContext, "Successful DELETE transport", Toast.LENGTH_SHORT).show()
-            adapter.notifyDataSetChanged()
+            viewModel.getTransportList()
+            return@registerForActivityResult
         }
 
         if (result.resultCode == RESULT_CANCELED) {
@@ -102,7 +104,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
                 return@Observer
             }
 
-            Log.d(TAG, "setViewModel: Transport List: $it")
+//            Log.d(TAG, "setViewModel: Transport List: $it")
 
             adapter.setTransportList(it)
             adapter.notifyDataSetChanged()
@@ -114,7 +116,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
             }
 
             Toast.makeText(baseContext, "Successful DELETE transport", Toast.LENGTH_SHORT).show()
-            adapter.notifyDataSetChanged()
+            viewModel.getTransportList()
         })
     }
 

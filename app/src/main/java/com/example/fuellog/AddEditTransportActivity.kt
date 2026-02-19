@@ -126,7 +126,7 @@ class AddEditTransportActivity : AppCompatActivity() {
                 return@Observer
             }
 
-            Log.d(TAG, "setViewModel: ADDED new transport")
+//            Log.d(TAG, "setViewModel: ADDED new transport")
             setSuccessResult()
         })
 
@@ -203,7 +203,7 @@ class AddEditTransportActivity : AppCompatActivity() {
 
         val transport = Transport(0, nameTransport, companyName, modelTransport, yearMadeString.toInt(), descriptionTransport)
 
-        Log.d(TAG, "addNewTransport: Add new Transport")
+//        Log.d(TAG, "addNewTransport: Add new Transport")
         viewModel.addNewTransport(transport)
     }
 

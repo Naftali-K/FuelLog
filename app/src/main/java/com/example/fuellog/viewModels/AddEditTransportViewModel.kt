@@ -149,12 +149,23 @@ class AddEditTransportViewModel: ViewModel() {
         }
 
         val idInt: Int = id.toInt()
-        val removedItem = TempData.transportList.removeAt(idInt)
+//        val removedItem = TempData.transportList.removeAt(idInt)
+//
+//        if (removedItem == null) {
+//            return
+//        }
+//
+//        isCurrentTransportDeleted.value = true
 
-        if (removedItem == null) {
-            return
+        viewModelScope.launch {
+            val response = transportDAO.deleteTransportByID(idInt)
+
+            if (response == 1) {
+                isCurrentTransportDeleted.value = true
+                return@launch
+            }
+
+            isCurrentTransportDeleted.value = false
         }
-
-        isCurrentTransportDeleted.value = true
     }
 }
