@@ -72,7 +72,8 @@ class TransportRecyclerViewAdapter(
 
             itemLinearLayout.setOnLongClickListener {
 //                Toast.makeText(context, "This is a long click", Toast.LENGTH_SHORT).show()
-                callBack.openItemIntBottomSheetDialog(position)
+//                callBack.openItemIntBottomSheetDialog(position)
+                callBack.openItemIntBottomSheetDialog(transport.id)
                 true
             }
         }

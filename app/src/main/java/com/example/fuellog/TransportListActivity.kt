@@ -44,7 +44,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
 
         if (result.resultCode == AddEditTransportActivity.RESULT_UPDATED) {
             Toast.makeText(baseContext, "Successful update information of transport", Toast.LENGTH_SHORT).show()
-            adapter.notifyDataSetChanged()
+            viewModel.getTransportList()
         }
 
         if (result.resultCode == AddEditTransportActivity.RESULT_DELETE) {

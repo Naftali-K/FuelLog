@@ -38,6 +38,7 @@ class AddEditTransportActivity : AppCompatActivity() {
     lateinit var deleteBtn: Button
     var transportId: String? = null
     var isUpdate: Boolean = false
+    private var transport: Transport? = null
 
     lateinit var viewModel: AddEditTransportViewModel
 
@@ -106,17 +107,17 @@ class AddEditTransportActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.isValidThisInput().observe(this, Observer<Transport?> {
-            if (it == null) {
+        viewModel.isValidThisInput().observe(this, Observer<Boolean> {
+            if (!it) {
                 return@Observer
             }
 
             if (isUpdate) {
-                updateTransport(it)
+                updateTransport()
                 return@Observer
             }
 
-            addNewTransport(it)
+            addNewTransport()
         })
 
         viewModel.isAddedUpdatedThisNewTransport().observe(this, Observer<Boolean> { item ->
@@ -135,6 +136,8 @@ class AddEditTransportActivity : AppCompatActivity() {
                 backPress()
                 return@Observer
             }
+
+            this.transport = item
 
             item.name?.let {
                 nameEt.setText(it)
@@ -191,14 +194,49 @@ class AddEditTransportActivity : AppCompatActivity() {
         viewModel.inputValidation(nameTransport, companyName, modelTransport, yearMadeString, descriptionTransport)
     }
 
-    fun addNewTransport(transport: Transport) {
+    fun addNewTransport() {
+        val nameTransport = nameEt.text.toString()
+        val companyName = companyEt.text.toString()
+        val modelTransport = modelEt.text.toString()
+        val yearMadeString = yearEt.text.toString()
+        val descriptionTransport = descriptionEt.text.toString()
+
+        val transport = Transport(0, nameTransport, companyName, modelTransport, yearMadeString.toInt(), descriptionTransport)
+
         Log.d(TAG, "addNewTransport: Add new Transport")
         viewModel.addNewTransport(transport)
     }
 
-    fun updateTransport(transport: Transport) {
-        Log.d(TAG, "addNewTransport: Update Transport")
-        viewModel.updateThisTransport(transportId, transport)
+    fun updateTransport() {
+        if (transport == null) {
+            return
+        }
+
+        val nameTransport = nameEt.text.toString()
+        val companyName = companyEt.text.toString()
+        val modelTransport = modelEt.text.toString()
+        val yearMadeString = yearEt.text.toString()
+        val descriptionTransport = descriptionEt.text.toString()
+
+        transport?.let {
+            it.name = nameTransport
+            it.company = companyName
+            it.model = modelTransport
+            it.year = yearMadeString.toInt()
+            it.description = descriptionTransport
+
+            Log.d(TAG, "addNewTransport: Update Transport")
+            viewModel.updateThisTransport(it)
+        }
+
+//        transport!!.name = nameTransport
+//        transport!!.company = companyName
+//        transport!!.model = modelTransport
+//        transport!!.year = yearMadeString.toInt()
+//        transport!!.description = descriptionTransport
+//
+//        Log.d(TAG, "addNewTransport: Update Transport")
+//        viewModel.updateThisTransport(transport!!)
     }
 
     fun setUnSuccessResult() {

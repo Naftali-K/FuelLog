@@ -26,7 +26,7 @@ class AddEditTransportViewModel: ViewModel() {
     private val isFocusName: MutableLiveData<Boolean> = MutableLiveData()
     private val isFocusCompany: MutableLiveData<Boolean> = MutableLiveData()
     private val isFocusModel: MutableLiveData<Boolean> = MutableLiveData()
-    private val isValidInput: MutableLiveData<Transport?> = MutableLiveData(null)
+    private val isValidInput: MutableLiveData<Boolean> = MutableLiveData()
     private val currentTransport: MutableLiveData<Transport?> = MutableLiveData()
     private val isCurrentTransportUpdated: MutableLiveData<Boolean> = MutableLiveData(false)
     private val isCurrentTransportDeleted: MutableLiveData<Boolean> = MutableLiveData()
@@ -50,7 +50,7 @@ class AddEditTransportViewModel: ViewModel() {
         return isFocusModel
     }
 
-    fun isValidThisInput(): LiveData<Transport?> {
+    fun isValidThisInput(): LiveData<Boolean> {
         return isValidInput
     }
 
@@ -91,9 +91,7 @@ class AddEditTransportViewModel: ViewModel() {
             yearMade = yearMadeString.toInt()
         }
 
-        val transport = Transport(0, nameTransport, companyName, modelTransport, yearMade, descriptionTransport)
-
-        isValidInput.value = transport
+        isValidInput.value = true
     }
 
     fun addNewTransport(nameTransport: String, companyName: String, modelTransport: String, yearMade: Int, descriptionTransport: String) {
@@ -122,26 +120,27 @@ class AddEditTransportViewModel: ViewModel() {
         }
 
         val idInt: Int = id.toInt()
-        val transport = TempData.transportList.get(idInt)
+        viewModelScope.launch {
+            val transport = transportDAO.getTransportByID(idInt)
 
-        currentTransport.value = transport
+            currentTransport.value = transport
+        }
     }
 
-    fun updateThisTransport(id: String?, transport: Transport) {
-        if (id == null) {
-            return
+    fun updateThisTransport(transport: Transport) {
+
+        viewModelScope.launch {
+            val response = transportDAO.updateTransport(transport)
+
+            if (response == 1) {
+                isCurrentTransportUpdated.value = true
+                return@launch
+            }
+
+            isCurrentTransportUpdated.value = false
         }
 
-        val idInt: Int = id.toInt()
-        val transportOriginal = TempData.transportList.get(idInt)
-
-        transportOriginal.name = transport.name
-        transportOriginal.company = transport.company
-        transportOriginal.model = transport.model
-        transportOriginal.year = transport.year
-        transportOriginal.description = transport.description
-
-        isCurrentTransportUpdated.value = true
+//        isCurrentTransportUpdated.value = true
     }
 
     fun deleteThisTransport(id: String?) {

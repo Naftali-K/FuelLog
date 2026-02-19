@@ -1,6 +1,5 @@
 package com.example.fuellog.DBRoom
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -16,6 +15,9 @@ import com.example.fuellog.models.Transport
 @Dao
 interface TransportDAO {
 
+    @Query("SELECT * FROM ${Transport.TABLE_NAME} WHERE id=:id")
+    suspend fun getTransportByID(id: Int): Transport
+
     @Query("SELECT * FROM ${Transport.TABLE_NAME}")
     suspend fun getAllTransport(): List<Transport>
 
@@ -23,7 +25,7 @@ interface TransportDAO {
     suspend fun addTransport(transport: Transport): Long
 
     @Update
-    suspend fun updateTransport(transport: Transport)
+    suspend fun updateTransport(transport: Transport): Int
 
     @Delete
     suspend fun deleteTransport(transport: Transport)
