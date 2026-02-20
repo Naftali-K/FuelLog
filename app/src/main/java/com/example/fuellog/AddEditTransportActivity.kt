@@ -20,7 +20,7 @@ import com.example.fuellog.viewModels.AddEditTransportViewModel
 class AddEditTransportActivity : AppCompatActivity() {
 
     companion object {
-        val EXTRA_MANE: String = "transport_id"
+        val EXTRA_NAME: String = "transport_id"
         val RESULT_UPDATED: Int = -2
         val RESULT_DELETE: Int = -3
     }
@@ -55,7 +55,7 @@ class AddEditTransportActivity : AppCompatActivity() {
         setReferences()
         setViewModel()
 
-        transportId = intent.getStringExtra(EXTRA_MANE)
+        transportId = intent.getStringExtra(EXTRA_NAME)
         Log.d(TAG, "onCreate: ExtraString value: $transportId")
         if (!transportId.equals("") && transportId != null) {
             setValuesToViews()

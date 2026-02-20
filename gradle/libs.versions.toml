@@ -12,7 +12,6 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 swipeRefresh = "1.2.0-alpha01"
 roomVersion = "2.8.4"
-stethoVersion = "1.6.0"
 lifeCycleViewModelVersion = "2.10.0"
 
 [libraries]
@@ -27,8 +26,6 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 swiperefreshlayout = {module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref= "swipeRefresh"}
 roomRuntime = {module= "androidx.room:room-runtime", version.ref= "roomVersion"}
 roomCompiler = {module= "androidx.room:room-compiler", version.ref= "roomVersion"}
-stetho = {module= "com.facebook.stetho:stetho", version.ref= "stethoVersion"}
-stethoOkHTTP = {module= "com.facebook.stetho:stetho-okhttp3", version.ref= "stethoVersion"}
 lifeCycleViewModel = {module= "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref= "lifeCycleViewModelVersion"}
 
 [plugins]

@@ -4,11 +4,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +16,7 @@ import com.example.fuellog.viewModels.TransportInfoViewModel
 class TransportInfoActivity : AppCompatActivity() {
 
     companion object {
-        val EXTRA_MANE: String = "transport_id"
+        val EXTRA_NAME: String = "transport_id"
     }
 
     private lateinit var backBtn: ImageView
@@ -46,7 +42,7 @@ class TransportInfoActivity : AppCompatActivity() {
 //            insets
 //        }
 
-        transportId = intent.getStringExtra(EXTRA_MANE)
+        transportId = intent.getStringExtra(EXTRA_NAME)
         if (transportId == null) {
             backPress()
             return

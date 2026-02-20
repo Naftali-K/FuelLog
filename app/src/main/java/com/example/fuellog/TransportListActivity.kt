@@ -153,7 +153,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
     private fun openTransportInfoActivity(id: Int) {
         Log.d(TAG, "openItemIdInt: Open transport in Index: $id")
         val intent = Intent(baseContext, TransportInfoActivity::class.java)
-            intent.putExtra(TransportInfoActivity.EXTRA_MANE, id.toString())
+        intent.putExtra(TransportInfoActivity.EXTRA_NAME, id.toString())
 
         startActivity(intent)
     }
@@ -165,7 +165,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
             override fun editItemId() {
                 Log.d(TAG, "editItemIdInt: Edit item ID: $id")
                 val intent = Intent(baseContext, AddEditTransportActivity::class.java)
-                intent.putExtra(AddEditTransportActivity.EXTRA_MANE, id.toString())
+                intent.putExtra(AddEditTransportActivity.EXTRA_NAME, id.toString())
 
                 addEditTransportActivityResultLauncher.launch(intent)
 
