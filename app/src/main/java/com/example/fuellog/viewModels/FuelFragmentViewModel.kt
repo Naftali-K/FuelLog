@@ -1,8 +1,11 @@
 package com.example.fuellog.viewModels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.fuellog.DBRoom.ApplicationDataBase
+import com.example.fuellog.DBRoom.TransportDAO
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.models.TempData
 
@@ -13,7 +16,15 @@ import com.example.fuellog.models.TempData
 
 class FuelFragmentViewModel: ViewModel() {
 
+    private lateinit var context: Context
+    private lateinit var transportDAO: TransportDAO
+
     private val fuelCurrentTransport: MutableLiveData<List<FuelConsumption>> = MutableLiveData()
+
+    fun initViewModel(context: Context) {
+        this.context = context
+        transportDAO = ApplicationDataBase.getInstance(context).transportDAO()
+    }
 
     fun thisTransportFuel(): LiveData<List<FuelConsumption>> {
         return fuelCurrentTransport

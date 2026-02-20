@@ -92,8 +92,9 @@ class FuelFragment() : Fragment() {
 
     private fun setViewModel() {
         viewModel = ViewModelProvider(this).get(FuelFragmentViewModel::class.java)
+        viewModel.initViewModel(requireContext())
 
-        viewModel.thisTransportFuel().observe(this, Observer<List<FuelConsumption>> { item ->
+        viewModel.thisTransportFuel().observe(viewLifecycleOwner, Observer<List<FuelConsumption>> { item ->
             if (item == null) {
                 return@Observer
             }
@@ -101,7 +102,7 @@ class FuelFragment() : Fragment() {
             adapter.setFuelConsumptionList(item)
         })
 
-        viewModel.isAddedFuelConsumption().observe(this, Observer<Boolean> { item ->
+        viewModel.isAddedFuelConsumption().observe(viewLifecycleOwner, Observer<Boolean> { item ->
 
             if (item) {
                 dialog.dismiss()
@@ -112,7 +113,7 @@ class FuelFragment() : Fragment() {
             Toast.makeText(context, "Some problem with add new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.isUpdatedFuelConsumption().observe(this, Observer<Boolean> { item ->
+        viewModel.isUpdatedFuelConsumption().observe(viewLifecycleOwner, Observer<Boolean> { item ->
             if (item) {
                 dialog.dismiss()
                 adapter.notifyDataSetChanged()
@@ -122,7 +123,7 @@ class FuelFragment() : Fragment() {
             Toast.makeText(context, "Some problem with update new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.isFuelConsumptionDeleted().observe(this, Observer<Boolean> { item ->
+        viewModel.isFuelConsumptionDeleted().observe(viewLifecycleOwner, Observer<Boolean> { item ->
             if (item) {
                 viewModel.getThisTransportFuel(transportID)
                 return@Observer

@@ -20,9 +20,9 @@ import com.example.fuellog.viewModels.AddEditTransportViewModel
 class AddEditTransportActivity : AppCompatActivity() {
 
     companion object {
-        val EXTRA_NAME: String = "transport_id"
-        val RESULT_UPDATED: Int = -2
-        val RESULT_DELETE: Int = -3
+        const val EXTRA_NAME: String = "transport_id"
+        const val RESULT_UPDATED: Int = -2
+        const val RESULT_DELETE: Int = -3
     }
 
     private val TAG: String = "Test_code"

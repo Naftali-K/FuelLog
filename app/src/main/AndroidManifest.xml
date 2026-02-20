@@ -18,9 +18,6 @@
             android:name=".AddEditTransportActivity"
             android:exported="false" />
         <activity
-            android:name=".viewModels.TransportListViewModel"
-            android:exported="false" />
-        <activity
             android:name=".TransportListActivity"
             android:exported="false" />
         <activity

@@ -16,7 +16,7 @@ import com.example.fuellog.viewModels.TransportInfoViewModel
 class TransportInfoActivity : AppCompatActivity() {
 
     companion object {
-        val EXTRA_NAME: String = "transport_id"
+        const val EXTRA_NAME: String = "transport_id"
     }
 
     private lateinit var backBtn: ImageView
