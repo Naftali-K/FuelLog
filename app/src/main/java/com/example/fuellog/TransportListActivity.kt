@@ -150,15 +150,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         dialog.show(supportFragmentManager, AccessDialog.DIALOG_TAG)
     }
 
-    fun backPress() {
-        onBackPressedDispatcher.onBackPressed()
-        finish()
-    }
-
-
-
-    // TODO: Overrides -----------------------------------------------------------------------------
-    override fun openItemIdInt(id: Int) {
+    private fun openTransportInfoActivity(id: Int) {
         Log.d(TAG, "openItemIdInt: Open transport in Index: $id")
         val intent = Intent(baseContext, TransportInfoActivity::class.java)
             intent.putExtra(TransportInfoActivity.EXTRA_MANE, id.toString())
@@ -166,18 +158,14 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         startActivity(intent)
     }
 
-    override fun openItemIdString(id: String) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun openItemIntBottomSheetDialog(id: Int) {
+    private fun openAdapterActionBottomSheetDialog(id: Int) {
         Log.d(TAG, "openItemIntBottomSheetDialog: Open transport action menu for Index: $id")
 
         adapterActionsBottomSheetDialog = AdapterActionsBottomSheetDialog(object : AdapterActionMenuListener {
             override fun editItemId() {
                 Log.d(TAG, "editItemIdInt: Edit item ID: $id")
                 val intent = Intent(baseContext, AddEditTransportActivity::class.java)
-                    intent.putExtra(AddEditTransportActivity.EXTRA_MANE, id.toString())
+                intent.putExtra(AddEditTransportActivity.EXTRA_MANE, id.toString())
 
                 addEditTransportActivityResultLauncher.launch(intent)
 
@@ -193,6 +181,26 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         })
 
         adapterActionsBottomSheetDialog.show(supportFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
+    }
+
+    fun backPress() {
+        onBackPressedDispatcher.onBackPressed()
+        finish()
+    }
+
+
+
+    // TODO: Overrides -----------------------------------------------------------------------------
+    override fun openItemIdInt(id: Int) {
+        openTransportInfoActivity(id)
+    }
+
+    override fun openItemIdString(id: String) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun openItemIntBottomSheetDialog(id: Int) {
+        openAdapterActionBottomSheetDialog(id)
     }
 
     override fun openItemStringBottomSheetDialog(id: String) {

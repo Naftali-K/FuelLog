@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fuellog.DBRoom.ApplicationDataBase
 import com.example.fuellog.DBRoom.TransportDAO
-import com.example.fuellog.models.TempData
 import com.example.fuellog.models.Transport
 import kotlinx.coroutines.launch
 
@@ -22,7 +21,6 @@ class TransportListViewModel: ViewModel() {
     private lateinit var db: ApplicationDataBase
     private lateinit var transportDAO: TransportDAO
     private val transportList: MutableLiveData<List<Transport>> = MutableLiveData()
-//    val transportList: LiveData<List<Transport>> = transportDAO.getAllTransport()
     private val isCurrentTransportDeleted: MutableLiveData<Boolean> = MutableLiveData()
 
     fun initViewModel(context: Context) {
@@ -62,15 +60,6 @@ class TransportListViewModel: ViewModel() {
 
             isCurrentTransportDeleted.value = false
         }
-
-//        if (removedItem == null) {
-//            return
-//        }
-//
-//        isCurrentTransportDeleted.value = true
     }
 
-    fun updateTransport(transport: Transport) = viewModelScope.launch {
-        transportDAO.updateTransport(transport)
-    }
 }

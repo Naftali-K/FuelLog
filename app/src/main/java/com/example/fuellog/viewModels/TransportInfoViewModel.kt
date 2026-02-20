@@ -1,10 +1,14 @@
 package com.example.fuellog.viewModels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.fuellog.models.TempData
+import androidx.lifecycle.viewModelScope
+import com.example.fuellog.DBRoom.ApplicationDataBase
+import com.example.fuellog.DBRoom.TransportDAO
 import com.example.fuellog.models.Transport
+import kotlinx.coroutines.launch
 
 /**
  * @Author: naftalikomarovski
@@ -13,7 +17,15 @@ import com.example.fuellog.models.Transport
 
 class TransportInfoViewModel: ViewModel() {
 
+    private lateinit var context: Context
+    private lateinit var transportDAO: TransportDAO
+
     private val currentTransport: MutableLiveData<Transport?> = MutableLiveData()
+
+    fun initViewModel(context: Context) {
+        this.context = context
+        transportDAO = ApplicationDataBase.getInstance(context).transportDAO()
+    }
 
     fun thisTransport(): LiveData<Transport?> {
         return currentTransport
@@ -25,8 +37,11 @@ class TransportInfoViewModel: ViewModel() {
         }
 
         val idInt: Int = id.toInt()
-        val transport = TempData.transportList.get(idInt)
 
-        currentTransport.value = transport
+        viewModelScope.launch {
+            val transport = transportDAO.getTransportByID(idInt)
+
+            currentTransport.value = transport
+        }
     }
 }

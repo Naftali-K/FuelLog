@@ -84,6 +84,7 @@ class TransportInfoActivity : AppCompatActivity() {
 
     private fun setViewModel() {
         viewModel = ViewModelProvider(this).get(TransportInfoViewModel::class.java)
+        viewModel.initViewModel(baseContext)
 
         viewModel.thisTransport().observe(this, Observer<Transport?> { item ->
             if (item == null) {

@@ -67,7 +67,7 @@ class TransportRecyclerViewAdapter(
 
             itemLinearLayout.setOnClickListener { view ->
 //                Toast.makeText(context, "This is a on click", Toast.LENGTH_SHORT).show()
-                callBack.openItemIdInt(position)
+                callBack.openItemIdInt(transport.id)
             }
 
             itemLinearLayout.setOnLongClickListener {
