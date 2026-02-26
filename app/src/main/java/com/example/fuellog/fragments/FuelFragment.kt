@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fuellog.R
 import com.example.fuellog.adapters.FuelConsumptionRecyclerViewAdapter
 import com.example.fuellog.dialogs.AccessDialog
@@ -34,6 +35,7 @@ class FuelFragment() : Fragment() {
 
     private lateinit var addFuelConsumptionIv: ImageView
     private lateinit var openChartFuelConsumptionIv: ImageView
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var fuelConsumptionRecyclerView: RecyclerView
 
     private var transportID: String? = null
@@ -52,6 +54,10 @@ class FuelFragment() : Fragment() {
         transportID = arguments?.getString(TRANSPORT_ID)
 //        Log.d(TAG, "onCreateView: FuelFragment Transport ID: $transportID")
         transportID.let { text ->
+            viewModel.getThisTransportFuel(text)
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
             viewModel.getThisTransportFuel(transportID)
         }
 
@@ -65,6 +71,7 @@ class FuelFragment() : Fragment() {
     private fun setReferences(view: View) {
         addFuelConsumptionIv = view.findViewById(R.id.add_fuel_consumption_iv)
         openChartFuelConsumptionIv = view.findViewById(R.id.open_chart_fuel_consumption_iv)
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
         fuelConsumptionRecyclerView = view.findViewById(R.id.fuel_consumption_recycler_view)
     }
 
@@ -100,6 +107,7 @@ class FuelFragment() : Fragment() {
             }
 
             adapter.setFuelConsumptionList(item)
+            swipeRefreshLayout.isRefreshing = false
         })
 
         viewModel.isAddedFuelConsumption().observe(viewLifecycleOwner, Observer<Boolean> { item ->

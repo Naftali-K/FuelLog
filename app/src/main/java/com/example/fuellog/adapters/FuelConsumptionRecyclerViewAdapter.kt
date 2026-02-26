@@ -66,7 +66,7 @@ class FuelConsumptionRecyclerViewAdapter(
         fun bind(fuelConsumption: FuelConsumption, contextParent: Context, position: Int, callback: AdapterActionListener) {
 
             itemLinearLayout.setOnLongClickListener {
-                callback.openItemIntBottomSheetDialog(position)
+                callback.openItemIntBottomSheetDialog(fuelConsumption.id)
                 true
             }
 

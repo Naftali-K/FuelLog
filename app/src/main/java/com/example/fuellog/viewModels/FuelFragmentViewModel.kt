@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.fuellog.DBRoom.ApplicationDataBase
+import com.example.fuellog.DBRoom.FuelConsumptionDAO
 import com.example.fuellog.DBRoom.TransportDAO
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.models.TempData
+import kotlinx.coroutines.launch
 
 /**
  * @Author: naftalikomarovski
@@ -17,13 +20,15 @@ import com.example.fuellog.models.TempData
 class FuelFragmentViewModel: ViewModel() {
 
     private lateinit var context: Context
-    private lateinit var transportDAO: TransportDAO
+//    private lateinit var transportDAO: TransportDAO
+    private lateinit var fuelConsumptionDAO: FuelConsumptionDAO
 
     private val fuelCurrentTransport: MutableLiveData<List<FuelConsumption>> = MutableLiveData()
 
     fun initViewModel(context: Context) {
         this.context = context
-        transportDAO = ApplicationDataBase.getInstance(context).transportDAO()
+//        transportDAO = ApplicationDataBase.getInstance(context).transportDAO()
+        fuelConsumptionDAO = ApplicationDataBase.getInstance(context).fuelConsumptionDAO()
     }
 
     fun thisTransportFuel(): LiveData<List<FuelConsumption>> {
@@ -37,8 +42,19 @@ class FuelFragmentViewModel: ViewModel() {
         }
 
         val idInt: Int = id.toInt()
-        val fuelList = TempData.fuelConsumptionList
-        fuelCurrentTransport.value = fuelList
+
+        viewModelScope.launch {
+            val fuelList = fuelConsumptionDAO.getTransportFuelConsumption(idInt)
+
+            if (fuelList == null) {
+                return@launch
+            }
+
+            fuelCurrentTransport.value = fuelList
+        }
+
+//        val fuelList = TempData.fuelConsumptionList
+//        fuelCurrentTransport.value = fuelList
     }
 
 
@@ -57,8 +73,19 @@ class FuelFragmentViewModel: ViewModel() {
             return
         }
 
-        val addedNewFuelConsumption = TempData.fuelConsumptionList.add(item)
-        isAddedNewFuelConsumption.value = addedNewFuelConsumption
+//        val addedNewFuelConsumption = TempData.fuelConsumptionList.add(item)
+//        isAddedNewFuelConsumption.value = addedNewFuelConsumption
+
+        viewModelScope.launch {
+            val fuelConsumptionID = fuelConsumptionDAO.addTransportFuelConsumption(item)
+
+            if (fuelConsumptionID < 0) {
+                isAddedNewFuelConsumption.value = false
+                return@launch
+            }
+
+            isAddedNewFuelConsumption.value = true
+        }
     }
 
     private val isUpdatedCurrentFuelConsumption: MutableLiveData<Boolean> = MutableLiveData()
@@ -93,12 +120,23 @@ class FuelFragmentViewModel: ViewModel() {
         }
 
         val idInt: Int = id.toInt()
-        val removedItem = TempData.fuelConsumptionList.removeAt(idInt)
+//        val removedItem = TempData.fuelConsumptionList.removeAt(idInt)
+//
+//        if (removedItem == null) {
+//            return
+//        }
+//
+//        isCurrentFuelConsumptionDeleted.value = true
 
-        if (removedItem == null) {
-            return
+        viewModelScope.launch {
+            val response = fuelConsumptionDAO.deleteTransportFuelConsumptionById(idInt)
+
+            if (response == 1) {
+                isCurrentFuelConsumptionDeleted.value = true
+                return@launch
+            }
+
+            isCurrentFuelConsumptionDeleted.value = false
         }
-
-        isCurrentFuelConsumptionDeleted.value = true
     }
 }
