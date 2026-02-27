@@ -1,8 +1,10 @@
 package com.example.fuellog.DBRoom
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.fuellog.models.FuelConsumption
 
 /**
@@ -20,6 +22,12 @@ interface FuelConsumptionDAO {
 
     @Insert
     suspend fun addTransportFuelConsumption(fuelConsumption: FuelConsumption): Long
+
+    @Update
+    suspend fun updateTransportFuelConsumption(fuelConsumption: FuelConsumption): Int
+
+    @Delete
+    suspend fun deleteTransportFuelConsumption(fuelConsumption: FuelConsumption): Int
 
     @Query("DELETE FROM ${FuelConsumption.TABLE_NAME} WHERE id=:id")
     suspend fun deleteTransportFuelConsumptionById(id: Int): Int

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuellog.R
 import com.example.fuellog.interfaces.AdapterActionListener
+import com.example.fuellog.interfaces.AdapterActionListenerNew
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.models.PublicMethods
 
@@ -19,7 +20,7 @@ import com.example.fuellog.models.PublicMethods
 
 class FuelConsumptionRecyclerViewAdapter(
     private var fuelConsumptionList: List<FuelConsumption> = ArrayList<FuelConsumption>(),
-    private val callback: AdapterActionListener
+    private val callback: AdapterActionListenerNew<FuelConsumption>
 ): RecyclerView.Adapter<FuelConsumptionRecyclerViewAdapter.FuelConsumptionRecyclerViewHolder>() {
 
     lateinit var contextParent: Context
@@ -63,10 +64,10 @@ class FuelConsumptionRecyclerViewAdapter(
             kmTo1LiterTv = itemView.findViewById(R.id.km_to_1_liter_tv)
         }
 
-        fun bind(fuelConsumption: FuelConsumption, contextParent: Context, position: Int, callback: AdapterActionListener) {
+        fun bind(fuelConsumption: FuelConsumption, contextParent: Context, position: Int, callback: AdapterActionListenerNew<FuelConsumption>) {
 
             itemLinearLayout.setOnLongClickListener {
-                callback.openItemIntBottomSheetDialog(fuelConsumption.id)
+                callback.openItemBottomSheetDialog(fuelConsumption)
                 true
             }
 

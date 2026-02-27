@@ -27,7 +27,7 @@ import com.example.fuellog.models.TempData
  * @Date: 2026/01/23
  */
 
-class AddFuelConsumptionDialog(val transportID: String, val idItemString: String? = null, val callback: AddUpdateListener<FuelConsumption>): DialogFragment() {
+class AddFuelConsumptionDialog(val transportID: String, val fuelConsumption: FuelConsumption? = null, val callback: AddUpdateListener<FuelConsumption>): DialogFragment() {
 
     companion object {
         const val DIALOG_TAG = "AddFuelConsumptionDialog"
@@ -67,7 +67,7 @@ class AddFuelConsumptionDialog(val transportID: String, val idItemString: String
         builder.setView(view)
         setReferences(view)
         setDefaultDate(PublicMethods.getCurrentMilliseconds())
-        setValuesForUpdate(idItemString)
+        setValuesForUpdate(fuelConsumption)
 
         closeBtnIv.setOnClickListener {
             dismiss()
@@ -101,7 +101,14 @@ class AddFuelConsumptionDialog(val transportID: String, val idItemString: String
 //            Log.d(TAG, "onCreateDialog: New FuelConsumption: ${newFuelConsumption.toString()}")
 
             if (isUpdate) {
-                callback.update(newFuelConsumption)
+                fuelConsumption?.date = date
+                fuelConsumption?.kilometers = kilometersFloat
+                fuelConsumption?.liters = litersFloat
+                fuelConsumption?.fuelPrice = priceFloat
+
+                fuelConsumption?.let {
+                    callback.update(it)
+                }
                 return@setOnClickListener
             }
 
@@ -131,18 +138,15 @@ class AddFuelConsumptionDialog(val transportID: String, val idItemString: String
         datePickerTv.text = dateString
     }
 
-    private fun setValuesForUpdate(idItemString: String? = null) {
-        if (idItemString == null || idItemString.isEmpty()) {
+    private fun setValuesForUpdate(fuelConsumption: FuelConsumption? = null) {
+        if (fuelConsumption == null) {
             return
         }
 
-        val idInt = idItemString.toInt()
-        val item = TempData.fuelConsumptionList.get(idInt)
-
-        fuelEt.setText(item.liters.toString())
-        distanceEt.setText(item.kilometers.toString())
-        fuelPriceEt.setText(item.fuelPrice.toString())
-        setDefaultDate(item.date)
+        fuelEt.setText(fuelConsumption.liters.toString())
+        distanceEt.setText(fuelConsumption.kilometers.toString())
+        fuelPriceEt.setText(fuelConsumption.fuelPrice.toString())
+        setDefaultDate(fuelConsumption.date)
 
         addBtn.text = getString(R.string.update)
 

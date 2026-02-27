@@ -19,6 +19,7 @@ import com.example.fuellog.dialogs.AdapterActionsBottomSheetDialog
 import com.example.fuellog.dialogs.AddFuelConsumptionDialog
 import com.example.fuellog.interfaces.AccessCanselListener
 import com.example.fuellog.interfaces.AdapterActionListener
+import com.example.fuellog.interfaces.AdapterActionListenerNew
 import com.example.fuellog.interfaces.AdapterActionMenuListener
 import com.example.fuellog.interfaces.AddUpdateListener
 import com.example.fuellog.models.FuelConsumption
@@ -76,24 +77,17 @@ class FuelFragment() : Fragment() {
     }
 
     private fun setAdapter() {
-        adapter = FuelConsumptionRecyclerViewAdapter(callback =  object : AdapterActionListener {
-            override fun openItemIdInt(id: Int) {
+        adapter = FuelConsumptionRecyclerViewAdapter(callback =  object : AdapterActionListenerNew<FuelConsumption> {
+            override fun openItem(item: FuelConsumption) {
 //                TODO("Not yet implemented")
             }
 
-            override fun openItemIdString(id: String) {
-//                TODO("Not yet implemented")
-            }
-
-            override fun openItemIntBottomSheetDialog(id: Int) {
-                openAdapterActionDialog(id)
-            }
-
-            override fun openItemStringBottomSheetDialog(id: String) {
-//                TODO("Not yet implemented")
+            override fun openItemBottomSheetDialog(item: FuelConsumption) {
+                openAdapterActionDialog(item)
             }
 
         })
+
         fuelConsumptionRecyclerView.adapter = adapter
     }
 
@@ -124,7 +118,7 @@ class FuelFragment() : Fragment() {
         viewModel.isUpdatedFuelConsumption().observe(viewLifecycleOwner, Observer<Boolean> { item ->
             if (item) {
                 dialog.dismiss()
-                adapter.notifyDataSetChanged()
+                viewModel.getThisTransportFuel(transportID)
                 return@Observer
             }
 
@@ -139,20 +133,20 @@ class FuelFragment() : Fragment() {
         })
     }
 
-    private fun openAddUpdateFuelConsumptionDialog(idString: String? = null) {
+    private fun openAddUpdateFuelConsumptionDialog(fuelConsumption: FuelConsumption? = null) {
         if (transportID == null) {
             return
         }
 
-        dialog = AddFuelConsumptionDialog(transportID!!, idString, callback =  object : AddUpdateListener<FuelConsumption> {
+        dialog = AddFuelConsumptionDialog(transportID!!, fuelConsumption, callback =  object : AddUpdateListener<FuelConsumption> {
             override fun add(item: FuelConsumption) {
                 Log.d(TAG, "add: New FuelConsumption: ${item}")
                 addNewFuelConsumption(item)
             }
 
             override fun update(item: FuelConsumption) {
-                Log.d(TAG, "update: Update item ID: $idString -> Item: $item")
-                updateFuelConsumption(idString, item)
+                Log.d(TAG, "update: Update item ID: ${item.id} -> Item: $item")
+                updateFuelConsumption(item)
             }
 
         })
@@ -165,23 +159,19 @@ class FuelFragment() : Fragment() {
         viewModel.addNewFuelConsumption(item)
     }
 
-    private fun updateFuelConsumption(idString: String?, item: FuelConsumption) {
-        if (idString == null || idString.isEmpty()) {
-            return
-        }
+    private fun updateFuelConsumption(item: FuelConsumption) {
 
-        viewModel.updateFuelConsumption(idString, item)
+        viewModel.updateFuelConsumption(item)
     }
 
-    private fun openAdapterActionDialog(id: Int) {
+    private fun openAdapterActionDialog(fuelConsumption: FuelConsumption) {
         val adapterDialog = AdapterActionsBottomSheetDialog(object : AdapterActionMenuListener {
             override fun editItemId() {
-                val idString = id.toString()
-                openAddUpdateFuelConsumptionDialog(idString)
+                openAddUpdateFuelConsumptionDialog(fuelConsumption)
             }
 
             override fun deleteItemId() {
-                openAccessDialog(id)
+                openAccessDialog(fuelConsumption)
             }
 
         })
@@ -189,10 +179,11 @@ class FuelFragment() : Fragment() {
         adapterDialog.show(parentFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
     }
 
-    private fun openAccessDialog(id: Int) {
+    private fun openAccessDialog(fuelConsumption: FuelConsumption) {
         val dialog = AccessDialog(R.string.are_you_sure_you_want_to_delete_this, object : AccessCanselListener {
             override fun access() {
-                deleteItem(id)
+                deleteItem(fuelConsumption.id)
+//                deleteItem(fuelConsumption)
             }
 
             override fun cansel() {
@@ -204,6 +195,10 @@ class FuelFragment() : Fragment() {
     }
 
     private fun deleteItem(id: Int) {
+        viewModel.deleteFuelConsumption(id.toString())
+    }
+
+    private fun deleteItem(fuelConsumption: FuelConsumption) {
         viewModel.deleteFuelConsumption(id.toString())
     }
 }
