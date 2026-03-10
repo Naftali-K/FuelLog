@@ -73,6 +73,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">8dp</item>
         <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="categoryNotSelectedStyle" parent="categoryStyle">
@@ -82,7 +83,6 @@
     <style name="categorySelectedStyle" parent="categoryStyle">
         <item name="android:background">@drawable/style_category_selected</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/dark_background</item>
     </style>
 
 <!--   TODO: Bottom Dialog styles -->
