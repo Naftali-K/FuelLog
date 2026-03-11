@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FuelLog</string>
+    <string name="version_xxx">Версия: ***</string>
+    <string name="fuel_consumption">Расход топлива</string>
+    <string name="list_of_transports">Список транспортных средств</string>
+    <string name="fuel_liter_">Литров Топлива *:</string>
+    <string name="distance_km_">Расстояние, км *:</string>
+    <string name="fuel_price_">Цена на топливо:</string>
+    <string name="count">Считат</string>
+    <string name="liter_100_kilometer_">Литр/100 километров:</string>
+    <string name="l_100_km_">л/100 км:</string>
+    <string name="kilometer_1_liter_">Километр/1 литр:</string>
+    <string name="km_1_l_">км/1 л:</string>
+    <string name="cost_per_kilometer_">Стоимость за километр:</string>
+    <string name="name">Имя</string>
+    <string name="company">Компания</string>
+    <string name="model">Модель</string>
+    <string name="year">Год</string>
+    <string name="description">Описание</string>
+    <string name="add_new_transport">Добавить новый транспорт</string>
+    <string name="edit_transport">Редактировать транспорт</string>
+    <string name="update">Обновить</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="access">Подтвердить</string>
+    <string name="are_you_sure_you_want_to_delete_this">Вы уверены, что хотите это удалить?</string>
+    <string name="transport_name">Название транспорта</string>
+    <string name="transport_company">Компания Транспорта</string>
+    <string name="transport_model">Модель Транспорта</string>
+    <string name="transport_year">Год Транспорта</string>
+    <string name="transport_information">Информация Транспорта</string>
+    <string name="fuel">Топливо</string>
+    <string name="other">Другой</string>
+    <string name="kilometers_">Километры:</string>
+    <string name="liters_">Литры:</string>
+    <string name="date">Дата</string>
+    <string name="date_">Дата:</string>
+    <string name="add">Добавить</string>
+</resources>
