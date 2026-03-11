@@ -13,6 +13,7 @@
         android:id="@+id/fuel_consumption_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/icon_calculate_small"
         style="@style/button_style"
         android:text="@string/fuel_consumption"/>
 
@@ -20,6 +21,7 @@
         android:id="@+id/transport_list_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/icon_transport_list_small"
         style="@style/button_style"
         android:text="@string/list_of_transports"/>
 
