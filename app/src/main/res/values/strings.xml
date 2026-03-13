@@ -10,7 +10,7 @@
     <string name="liter_100_kilometer_">Liter/100 Kilometer:</string>
     <string name="l_100_km_">L/100 Km:</string>
     <string name="kilometer_1_liter_">Kilometer/1 Liter:</string>
-    <string name="km_1_l_">Km/1 L:</string>
+    <string name="km_1_l_">Km/1L:</string>
     <string name="cost_per_kilometer_">Cost per Kilometer:</string>
     <string name="name">Name</string>
     <string name="company">Company</string>
@@ -23,7 +23,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
-    <string name="access">Access</string>
+    <string name="access">Confirm</string>
     <string name="are_you_sure_you_want_to_delete_this">Are you sure you want to delete this?</string>
     <string name="transport_name">Transport name</string>
     <string name="transport_company">Transport Company</string>

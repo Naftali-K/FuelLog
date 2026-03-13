@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FuelLog</string>
+    <string name="version_xxx">גרסה: ***</string>
+    <string name="fuel_consumption">צריכת דלק</string>
+    <string name="list_of_transports">רשימת רכבים</string>
+    <string name="fuel_liter_">ליטר דלק *:</string>
+    <string name="distance_km_">מרחק ק\"מ *:</string>
+    <string name="fuel_price_">מחיר דלק:</string>
+    <string name="count">לספור</string>
+    <string name="liter_100_kilometer_">ליטר/100 קילומטר:</string>
+    <string name="l_100_km_">ליטר/100 ק\"מ:</string>
+    <string name="kilometer_1_liter_">קילומטר/ליטר:</string>
+    <string name="km_1_l_">ק\"מ/ליטר:</string>
+    <string name="cost_per_kilometer_">עלות לקילומטר:</string>
+    <string name="name">שם</string>
+    <string name="company">חברה</string>
+    <string name="model">דגם</string>
+    <string name="year">שנה</string>
+    <string name="description">תאור</string>
+    <string name="add_new_transport">הוסף רכב חדשה</string>
+    <string name="edit_transport">עדכון רכב</string>
+    <string name="update">לעדכן</string>
+    <string name="edit">עדכון</string>
+    <string name="delete">למחוק</string>
+    <string name="cancel">לבטל</string>
+    <string name="access">לאשר</string>
+    <string name="are_you_sure_you_want_to_delete_this">האם אתה בטוח שאתה רוצה למחוק את זה?</string>
+    <string name="transport_name">שם רכב</string>
+    <string name="transport_company">חברת רכב</string>
+    <string name="transport_model">מודל רכב</string>
+    <string name="transport_year">שנת רכב</string>
+    <string name="transport_information">מידע על רכב</string>
+    <string name="fuel">דלק</string>
+    <string name="other">אחר</string>
+    <string name="kilometers_">קילומטרים:</string>
+    <string name="liters_">ליטר:</string>
+    <string name="date">תאריך</string>
+    <string name="date_">תאריך:</string>
+    <string name="add">להוסיף</string>
+</resources>
