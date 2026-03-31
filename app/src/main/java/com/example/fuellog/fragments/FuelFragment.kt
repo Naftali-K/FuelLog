@@ -194,7 +194,7 @@ class FuelFragment() : Fragment() {
         dialog.show(parentFragmentManager, AccessDialog.DIALOG_TAG)
     }
 
-    private fun deleteItem(id: Int) {
+    private fun deleteItem(id: Long) {
         viewModel.deleteFuelConsumption(id.toString())
     }
 

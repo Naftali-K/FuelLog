@@ -6,8 +6,8 @@ package com.example.fuellog.interfaces
  */
 
 interface AdapterActionListener {
-    fun openItemIdInt(id: Int)
+    fun openItemIdInt(id: Long)
     fun openItemIdString(id: String)
-    fun openItemIntBottomSheetDialog(id: Int)
+    fun openItemIntBottomSheetDialog(id: Long)
     fun openItemStringBottomSheetDialog(id: String)
 }

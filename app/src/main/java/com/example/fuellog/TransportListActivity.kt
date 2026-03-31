@@ -135,7 +135,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         viewModel.getTransportList()
     }
 
-    fun openAccessDialog(id: Int) {
+    fun openAccessDialog(id: Long) {
 
         val dialog = AccessDialog(R.string.are_you_sure_you_want_to_delete_this, object : AccessCanselListener {
             override fun access() {
@@ -150,7 +150,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         dialog.show(supportFragmentManager, AccessDialog.DIALOG_TAG)
     }
 
-    private fun openTransportInfoActivity(id: Int) {
+    private fun openTransportInfoActivity(id: Long) {
         Log.d(TAG, "openItemIdInt: Open transport in Index: $id")
         val intent = Intent(baseContext, TransportInfoActivity::class.java)
         intent.putExtra(TransportInfoActivity.EXTRA_NAME, id.toString())
@@ -158,7 +158,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         startActivity(intent)
     }
 
-    private fun openAdapterActionBottomSheetDialog(id: Int) {
+    private fun openAdapterActionBottomSheetDialog(id: Long) {
         Log.d(TAG, "openItemIntBottomSheetDialog: Open transport action menu for Index: $id")
 
         adapterActionsBottomSheetDialog = AdapterActionsBottomSheetDialog(object : AdapterActionMenuListener {
@@ -191,7 +191,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
 
 
     // TODO: Overrides -----------------------------------------------------------------------------
-    override fun openItemIdInt(id: Int) {
+    override fun openItemIdInt(id: Long) {
         openTransportInfoActivity(id)
     }
 
@@ -199,7 +199,7 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
 //        TODO("Not yet implemented")
     }
 
-    override fun openItemIntBottomSheetDialog(id: Int) {
+    override fun openItemIntBottomSheetDialog(id: Long) {
         openAdapterActionBottomSheetDialog(id)
     }
 
