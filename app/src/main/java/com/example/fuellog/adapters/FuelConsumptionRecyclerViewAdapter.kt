@@ -54,6 +54,8 @@ class FuelConsumptionRecyclerViewAdapter(
         private lateinit var litersValueTv: TextView
         private lateinit var literTo100KmTv: TextView
         private lateinit var kmTo1LiterTv: TextView
+        private lateinit var fuelPriceTv: TextView
+        private lateinit var costTo1KmTv: TextView
 
         init {
             itemLinearLayout = itemView.findViewById(R.id.item_linear_layout)
@@ -62,6 +64,8 @@ class FuelConsumptionRecyclerViewAdapter(
             litersValueTv = itemView.findViewById(R.id.liters_value_tv)
             literTo100KmTv = itemView.findViewById(R.id.liter_to_100_km_tv)
             kmTo1LiterTv = itemView.findViewById(R.id.km_to_1_liter_tv)
+            fuelPriceTv = itemView.findViewById(R.id.fuel_price_tv)
+            costTo1KmTv = itemView.findViewById(R.id.cost_to_1_km_tv)
         }
 
         fun bind(fuelConsumption: FuelConsumption, contextParent: Context, position: Int, callback: AdapterActionListenerNew<FuelConsumption>) {
@@ -77,8 +81,11 @@ class FuelConsumptionRecyclerViewAdapter(
             kilometersValueTv.text = fuelConsumption.kilometers.toString()
             litersValueTv.text = fuelConsumption.liters.toString()
 
-            literTo100KmTv.text = String.format("%.2f", PublicMethods.litersTo100Kilometers(fuelConsumption.liters.toFloat(), fuelConsumption.kilometers.toFloat()))
-            kmTo1LiterTv.text = String.format("%.2f", PublicMethods.kilometersTo1Liters(fuelConsumption.liters.toFloat(), fuelConsumption.kilometers.toFloat()))
+            literTo100KmTv.text = String.format("%.2f", PublicMethods.litersTo100Kilometers(fuelConsumption.liters, fuelConsumption.kilometers))
+            kmTo1LiterTv.text = String.format("%.2f", PublicMethods.kilometersTo1Liters(fuelConsumption.liters, fuelConsumption.kilometers))
+
+            fuelPriceTv.text = String.format("%.2f", fuelConsumption.fuelPrice)
+            costTo1KmTv.text = String.format("%.2f", PublicMethods.costPerKilometer(fuelConsumption.liters, fuelConsumption.kilometers, fuelConsumption.fuelPrice))
         }
     }
 }

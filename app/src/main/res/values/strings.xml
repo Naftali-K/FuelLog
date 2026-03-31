@@ -12,6 +12,7 @@
     <string name="kilometer_1_liter_">Kilometer/1 Liter:</string>
     <string name="km_1_l_">Km/1L:</string>
     <string name="cost_per_kilometer_">Cost per Kilometer:</string>
+    <string name="cost_km_">Cost/1Km:</string>
     <string name="name">Name</string>
     <string name="company">Company</string>
     <string name="model">Model</string>

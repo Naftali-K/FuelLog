@@ -13,6 +13,7 @@
     <string name="kilometer_1_liter_">Километр/1 литр:</string>
     <string name="km_1_l_">км/1л:</string>
     <string name="cost_per_kilometer_">Стоимость за километр:</string>
+    <string name="cost_km_">Цена/1Км</string>
     <string name="name">Имя</string>
     <string name="company">Компания</string>
     <string name="model">Модель</string>

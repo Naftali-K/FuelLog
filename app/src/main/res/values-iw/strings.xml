@@ -13,6 +13,7 @@
     <string name="kilometer_1_liter_">קילומטר/ליטר:</string>
     <string name="km_1_l_">ק\"מ/ליטר:</string>
     <string name="cost_per_kilometer_">עלות לקילומטר:</string>
+    <string name="cost_km_">עלות/ק\"מ</string>
     <string name="name">שם</string>
     <string name="company">חברה</string>
     <string name="model">דגם</string>
