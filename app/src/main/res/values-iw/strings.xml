@@ -7,6 +7,7 @@
     <string name="fuel_liter_">ליטר דלק *:</string>
     <string name="distance_km_">מרחק ק\"מ *:</string>
     <string name="fuel_price_">מחיר דלק:</string>
+    <string name="price_">מחיר:</string>
     <string name="count">לספור</string>
     <string name="liter_100_kilometer_">ליטר/100 קילומטר:</string>
     <string name="l_100_km_">ליטר/100 ק\"מ:</string>

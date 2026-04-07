@@ -7,6 +7,7 @@
     <string name="fuel_liter_">Литров Топлива *:</string>
     <string name="distance_km_">Расстояние, км *:</string>
     <string name="fuel_price_">Цена на топливо:</string>
+    <string name="price_">Цена:</string>
     <string name="count">Считат</string>
     <string name="liter_100_kilometer_">Литр/100 километров:</string>
     <string name="l_100_km_">л/100 км:</string>

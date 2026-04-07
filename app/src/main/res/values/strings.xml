@@ -6,6 +6,7 @@
     <string name="fuel_liter_">Fuel Liter *:</string>
     <string name="distance_km_">Distance Km *:</string>
     <string name="fuel_price_">Fuel Price:</string>
+    <string name="price_">Price:</string>
     <string name="count">Count</string>
     <string name="liter_100_kilometer_">Liter/100 Kilometer:</string>
     <string name="l_100_km_">L/100 Km:</string>
