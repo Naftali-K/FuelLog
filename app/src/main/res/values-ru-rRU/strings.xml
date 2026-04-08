@@ -41,4 +41,8 @@
     <string name="date_">Дата:</string>
     <string name="add">Добавить</string>
     <string name="coming_soon">Уже скоро...</string>
+    <string name="title_expenses">Название расхода:</string>
+    <string name="title_expenses_">Название расхода *:</string>
+    <string name="change_filter">Замена фильтра</string>
+    <string name="change_filter_and_oil">Замена фильтра и масла</string>
 </resources>

@@ -3,13 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.OtherFragment"
     android:orientation="vertical"
     android:gravity="center|top">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/coming_soon"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/add_other_expenses_iv"
+            android:layout_width="@dimen/small_actions_button_size"
+            android:layout_height="@dimen/small_actions_button_size"
+            android:layout_margin="@dimen/small_actions_button_margin"
+            android:src="@drawable/icon_edit_square"/>
+
+        <ImageView
+            android:id="@+id/search_other_expenses_iv"
+            android:layout_width="@dimen/small_actions_button_size"
+            android:layout_height="@dimen/small_actions_button_size"
+            android:layout_margin="@dimen/small_actions_button_margin"
+            android:src="@drawable/icon_search"/>
+
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/other_expenses_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/recycler_view_other_item"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

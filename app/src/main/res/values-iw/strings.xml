@@ -41,4 +41,8 @@
     <string name="date_">תאריך:</string>
     <string name="add">להוסיף</string>
     <string name="coming_soon">בקרוב...</string>
+    <string name="title_expenses">שם ביזבוז:</string>
+    <string name="title_expenses_">שם ביזבוז *:</string>
+    <string name="change_filter">החלפת פילטר</string>
+    <string name="change_filter_and_oil">החלפת פילטר ושמן</string>
 </resources>
