@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.fuellog.R
 import com.example.fuellog.models.FuelConsumption
+import com.example.fuellog.models.OtherExpenses
 import com.example.fuellog.models.Transport
 
 /**
@@ -15,10 +16,11 @@ import com.example.fuellog.models.Transport
 
 // https://youtu.be/YOFyhC4sE8A?si=71tV4zx3ElsfV_At - lesson video
 
-@Database(entities = [Transport::class, FuelConsumption::class], version = 1, exportSchema = false)
+@Database(entities = [Transport::class, FuelConsumption::class, OtherExpenses::class], version = 1, exportSchema = false)
 abstract class ApplicationDataBase: RoomDatabase() {
     abstract fun transportDAO(): TransportDAO
     abstract fun fuelConsumptionDAO(): FuelConsumptionDAO
+    abstract fun otherExpensesDAO(): OtherExpensesDAO
 
 //    companion object {
 //        @Volatile
