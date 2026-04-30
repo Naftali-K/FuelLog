@@ -12,7 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fuellog.R
+import com.example.fuellog.adapters.OtherExpensesRecyclerViewAdapter
+import com.example.fuellog.dialogs.AdapterActionsBottomSheetDialog
 import com.example.fuellog.dialogs.AddOtherExpensesDialog
+import com.example.fuellog.interfaces.AdapterActionListenerNew
+import com.example.fuellog.interfaces.AdapterActionMenuListener
 import com.example.fuellog.interfaces.AddUpdateListener
 import com.example.fuellog.models.FuelConsumption
 import com.example.fuellog.models.OtherExpenses
@@ -32,6 +36,7 @@ class OtherFragment : Fragment() {
     private lateinit var searchOtherExpensesIv: ImageView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var otherExpensesRecyclerView: RecyclerView
+    private lateinit var adapter: OtherExpensesRecyclerViewAdapter
 
     private lateinit var viewModel: OtherFragmentViewModel
     private lateinit var dialog: AddOtherExpensesDialog
@@ -43,6 +48,7 @@ class OtherFragment : Fragment() {
         transportID = arguments?.getString(FuelFragment.Companion.TRANSPORT_ID)
 
         setReferences(view)
+        setAdapter()
         setViewModel()
 
         transportID.let {
@@ -69,12 +75,27 @@ class OtherFragment : Fragment() {
         otherExpensesRecyclerView = view.findViewById(R.id.other_expenses_recycler_view)
     }
 
+    private fun setAdapter() {
+        adapter = OtherExpensesRecyclerViewAdapter(callback = object: AdapterActionListenerNew<OtherExpenses> {
+            override fun openItem(item: OtherExpenses) {
+//                TODO("Not yet implemented")
+            }
+
+            override fun openItemBottomSheetDialog(item: OtherExpenses) {
+                openAdapterActionDialog(item)
+            }
+        })
+
+        otherExpensesRecyclerView.adapter = adapter
+    }
+
     private fun setViewModel() {
         viewModel = ViewModelProvider(this).get(OtherFragmentViewModel::class.java)
         viewModel.initViewModel(requireContext())
 
         viewModel.thisTransportOtherExpenses().observe(viewLifecycleOwner, Observer<List<OtherExpenses>> { item ->
             Log.d(TAG, "setViewModel: List of Other Expenses: ${item}")
+            adapter.setOtherExpensesItemList(item)
             swipeRefreshLayout.isRefreshing = false
         })
 
@@ -113,5 +134,20 @@ class OtherFragment : Fragment() {
 
     private fun addNewOtherExpenses(otherExpenses: OtherExpenses) {
         viewModel.addThisTransportOtherExpenses(otherExpenses)
+    }
+
+    private fun openAdapterActionDialog(otherExpenses: OtherExpenses) {
+        val adapterDialog = AdapterActionsBottomSheetDialog(object: AdapterActionMenuListener {
+            override fun editItemId() {
+//                TODO("Not yet implemented")
+            }
+
+            override fun deleteItemId() {
+//                TODO("Not yet implemented")
+            }
+
+        })
+
+        adapterDialog.show(parentFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
     }
 }
