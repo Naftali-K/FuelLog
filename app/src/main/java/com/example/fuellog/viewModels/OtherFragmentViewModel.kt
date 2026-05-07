@@ -68,4 +68,67 @@ class OtherFragmentViewModel: ViewModel() {
             isAddedNewOtherExpenses.value = true
         }
     }
+
+
+
+
+    private val isCurrentOtherExpensesUpdated: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun isOtherExpensesUpdated(): LiveData<Boolean> {
+        return isCurrentOtherExpensesUpdated
+    }
+
+    fun updateOtherExpenses(otherExpenses: OtherExpenses) {
+        viewModelScope.launch {
+            val response = otherExpensesDAO.updateTransportOtherExpenses(otherExpenses)
+
+            if (response == 1) {
+                isCurrentOtherExpensesUpdated.value = true
+                return@launch
+            }
+
+            isCurrentOtherExpensesUpdated.value = false
+        }
+    }
+
+
+
+
+    private val isCurrentOtherExpensesDeleted: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun isOtherExpensesDeleted(): LiveData<Boolean> {
+        return isCurrentOtherExpensesDeleted
+    }
+
+    fun deleteOtherExpensesID(id: String?) {
+        if (id == null || id.isEmpty()) {
+            return
+        }
+
+        val idLong = id.toLong()
+
+        viewModelScope.launch {
+            val response = otherExpensesDAO.deleteTransportOtherExpensesByID(idLong)
+
+            if (response == 1) {
+                isCurrentOtherExpensesDeleted.value = true
+                return@launch
+            }
+
+            isCurrentOtherExpensesDeleted.value = false
+        }
+    }
+
+    fun deleteOtherExpenses(otherExpenses: OtherExpenses) {
+        viewModelScope.launch {
+            val response = otherExpensesDAO.deleteTransportOtherExpenses(otherExpenses)
+
+            if (response == 1) {
+                isCurrentOtherExpensesDeleted.value = true
+                return@launch
+            }
+
+            isCurrentOtherExpensesDeleted.value = false
+        }
+    }
 }

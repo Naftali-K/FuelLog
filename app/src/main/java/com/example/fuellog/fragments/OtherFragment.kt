@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fuellog.R
 import com.example.fuellog.adapters.OtherExpensesRecyclerViewAdapter
+import com.example.fuellog.dialogs.AccessDialog
 import com.example.fuellog.dialogs.AdapterActionsBottomSheetDialog
 import com.example.fuellog.dialogs.AddOtherExpensesDialog
+import com.example.fuellog.interfaces.AccessCanselListener
 import com.example.fuellog.interfaces.AdapterActionListenerNew
 import com.example.fuellog.interfaces.AdapterActionMenuListener
 import com.example.fuellog.interfaces.AddUpdateListener
@@ -108,6 +110,21 @@ class OtherFragment : Fragment() {
                 return@Observer
             }
         })
+
+        viewModel.isOtherExpensesUpdated().observe(viewLifecycleOwner, Observer<Boolean> {
+            if (it) {
+                getOtherExpenses()
+                dialog.dismiss()
+
+                return@Observer
+            }
+        })
+
+        viewModel.isOtherExpensesDeleted().observe(viewLifecycleOwner, Observer<Boolean> {
+            if (it) {
+                getOtherExpenses()
+            }
+        })
     }
 
     private fun getOtherExpenses() {
@@ -125,7 +142,7 @@ class OtherFragment : Fragment() {
             }
 
             override fun update(item: OtherExpenses) {
-//                TODO("Not yet implemented")
+                updateOtherExpenses(item)
             }
         })
 
@@ -136,18 +153,45 @@ class OtherFragment : Fragment() {
         viewModel.addThisTransportOtherExpenses(otherExpenses)
     }
 
+    private fun updateOtherExpenses(otherExpenses: OtherExpenses) {
+        viewModel.updateOtherExpenses(otherExpenses)
+    }
+
     private fun openAdapterActionDialog(otherExpenses: OtherExpenses) {
         val adapterDialog = AdapterActionsBottomSheetDialog(object: AdapterActionMenuListener {
             override fun editItemId() {
-//                TODO("Not yet implemented")
+                openAddUpdateOtherExpensesDialog(otherExpenses)
             }
 
             override fun deleteItemId() {
-//                TODO("Not yet implemented")
+                openAccessDialog(otherExpenses)
             }
 
         })
 
         adapterDialog.show(parentFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
+    }
+
+    private fun openAccessDialog(otherExpenses: OtherExpenses) {
+        val dialog = AccessDialog(R.string.are_you_sure_you_want_to_delete_this, object: AccessCanselListener {
+            override fun access() {
+                deleteItem(otherExpenses)
+//                deleteItem(otherExpenses.id)
+            }
+
+            override fun cansel() {
+
+            }
+        })
+
+        dialog.show(parentFragmentManager, AccessDialog.DIALOG_TAG)
+    }
+
+    private fun deleteItem(id: Long) {
+        viewModel.deleteOtherExpensesID(id.toString())
+    }
+
+    private fun deleteItem(otherExpenses: OtherExpenses) {
+        viewModel.deleteOtherExpenses(otherExpenses)
     }
 }
