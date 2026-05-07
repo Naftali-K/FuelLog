@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -96,7 +97,7 @@ class OtherFragment : Fragment() {
         viewModel.initViewModel(requireContext())
 
         viewModel.thisTransportOtherExpenses().observe(viewLifecycleOwner, Observer<List<OtherExpenses>> { item ->
-            Log.d(TAG, "setViewModel: List of Other Expenses: ${item}")
+//            Log.d(TAG, "setViewModel: List of Other Expenses: ${item}")
             adapter.setOtherExpensesItemList(item)
             swipeRefreshLayout.isRefreshing = false
         })
@@ -109,6 +110,8 @@ class OtherFragment : Fragment() {
 
                 return@Observer
             }
+
+            Toast.makeText(context, "Some problem with add new Other Expenses. Try again!", Toast.LENGTH_SHORT).show()
         })
 
         viewModel.isOtherExpensesUpdated().observe(viewLifecycleOwner, Observer<Boolean> {
@@ -118,12 +121,17 @@ class OtherFragment : Fragment() {
 
                 return@Observer
             }
+
+            Toast.makeText(context, "Some problem with update Other Expenses. Try again!", Toast.LENGTH_SHORT).show()
         })
 
         viewModel.isOtherExpensesDeleted().observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
                 getOtherExpenses()
+                return@Observer
             }
+
+            Toast.makeText(context, "Some problem with delete Other Expenses. Try again!", Toast.LENGTH_SHORT).show()
         })
     }
 

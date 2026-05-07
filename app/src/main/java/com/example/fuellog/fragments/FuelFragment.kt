@@ -122,7 +122,7 @@ class FuelFragment() : Fragment() {
                 return@Observer
             }
 
-            Toast.makeText(context, "Some problem with update new Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Some problem with update Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
         })
 
         viewModel.isFuelConsumptionDeleted().observe(viewLifecycleOwner, Observer<Boolean> { item ->
@@ -130,6 +130,8 @@ class FuelFragment() : Fragment() {
                 viewModel.getThisTransportFuel(transportID)
                 return@Observer
             }
+
+            Toast.makeText(context, "Some problem with delete Fuel Consumption. Try again!", Toast.LENGTH_SHORT).show()
         })
     }
 
