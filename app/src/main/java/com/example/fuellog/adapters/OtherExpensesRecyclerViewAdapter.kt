@@ -1,9 +1,11 @@
 package com.example.fuellog.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -21,11 +23,60 @@ class OtherExpensesRecyclerViewAdapter(
     private val callback: AdapterActionListenerNew<OtherExpenses>
 ): RecyclerView.Adapter<OtherExpensesRecyclerViewAdapter.OtherExpensesRecyclerViewHolder>() {
 
+    private val TAG: String = "Test_code"
     private lateinit var contextParent: Context
+    private var itemListFiltered = mutableListOf<OtherExpenses>()
 
     fun setOtherExpensesItemList(itemList: List<OtherExpenses>) {
-        this.itemList = itemList
-        notifyDataSetChanged()
+//        this.itemList = itemList
+//        notifyDataSetChanged()
+
+        if (itemList != null) {
+            this.itemList = itemList
+            this.itemListFiltered = ArrayList(itemList)
+            notifyDataSetChanged()
+        }
+    }
+
+    fun getFilter(): Filter {
+        return filter
+    }
+
+    private val filter: Filter = object: Filter() {
+        override fun performFiltering(charSequence: CharSequence?): FilterResults? {
+            val filteredList = ArrayList<OtherExpenses>()
+
+            if (charSequence.toString().isEmpty()) {
+                filteredList.addAll(itemList)
+            } else {
+                for (otherExpenses: OtherExpenses in itemList) {
+                    if (otherExpenses.titleExpenses.lowercase().contains(charSequence.toString().lowercase()) ||
+                        otherExpenses.description?.lowercase()?.contains(charSequence.toString().lowercase()) == true) {
+                        filteredList.add(otherExpenses)
+                    }
+                }
+            }
+
+            val filterResult = FilterResults()
+            filterResult.values = filteredList
+
+            return filterResult
+        }
+
+        override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults?) {
+            itemListFiltered.clear()
+
+//            @Suppress("UNCHECKED_CAST")
+//            itemListFiltered.addAll(filterResults?.values as Collection<OtherExpenses>)
+
+            val result = filterResults?.values as? Collection<OtherExpenses>
+            result?.let {
+                itemListFiltered.addAll(it)
+            }
+
+            notifyDataSetChanged()
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OtherExpensesRecyclerViewHolder {
@@ -35,11 +86,11 @@ class OtherExpensesRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: OtherExpensesRecyclerViewHolder, position: Int) {
-        holder.bind(itemList.get(position), contextParent, position, callback)
+        holder.bind(itemListFiltered.get(position), contextParent, position, callback)
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return itemListFiltered.size
     }
 
 

@@ -53,6 +53,11 @@
         <item name="android:padding">16dp</item>
     </style>
 
+    <style name="input_corner_style">
+        <item name="android:background">@drawable/style_input_corner</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
     <style name="multi_line_input_style">
         <item name="android:background">@drawable/style_text_area</item>
         <item name="android:padding">8dp</item>
@@ -60,6 +65,7 @@
         <item name="android:lines">3</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:gravity">top</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="nameValueStyle">

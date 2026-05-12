@@ -1,12 +1,16 @@
 package com.example.fuellog.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -37,6 +41,10 @@ class OtherFragment : Fragment() {
 
     private lateinit var addOtherExpensesIv: ImageView
     private lateinit var searchOtherExpensesIv: ImageView
+    private lateinit var searchLinearLayout: LinearLayout
+    private var isSearchLinearLayoutVisibility: Boolean = false
+    private lateinit var searchEt: EditText
+    private lateinit var closeBtnIv: ImageView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var otherExpensesRecyclerView: RecyclerView
     private lateinit var adapter: OtherExpensesRecyclerViewAdapter
@@ -59,6 +67,30 @@ class OtherFragment : Fragment() {
             getOtherExpenses()
         }
 
+        searchOtherExpensesIv.setOnClickListener {
+            switchVisibilitySearchViews()
+        }
+
+        closeBtnIv.setOnClickListener {
+            searchEt.text = null
+            switchVisibilitySearchViews()
+        }
+
+        searchEt.addTextChangedListener( object:TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                adapter.getFilter().filter(editable.toString())
+            }
+
+            override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+        })
+
         swipeRefreshLayout.setOnRefreshListener {
 //            viewModel.getThisTransportOtherExpenses(transportID)
             getOtherExpenses()
@@ -74,6 +106,9 @@ class OtherFragment : Fragment() {
     private fun setReferences(view: View) {
         addOtherExpensesIv = view.findViewById(R.id.add_other_expenses_iv)
         searchOtherExpensesIv = view.findViewById(R.id.search_other_expenses_iv)
+        searchLinearLayout = view.findViewById(R.id.search_linear_layout)
+        searchEt = view.findViewById(R.id.search_et)
+        closeBtnIv = view.findViewById(R.id.close_btn_iv)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
         otherExpensesRecyclerView = view.findViewById(R.id.other_expenses_recycler_view)
     }
@@ -201,5 +236,16 @@ class OtherFragment : Fragment() {
 
     private fun deleteItem(otherExpenses: OtherExpenses) {
         viewModel.deleteOtherExpenses(otherExpenses)
+    }
+
+    private fun switchVisibilitySearchViews() {
+        isSearchLinearLayoutVisibility = !isSearchLinearLayoutVisibility
+
+        if (isSearchLinearLayoutVisibility) {
+            searchLinearLayout.visibility = View.VISIBLE
+            return
+        }
+
+        searchLinearLayout.visibility = View.GONE
     }
 }
