@@ -45,4 +45,5 @@
     <string name="title_expenses_">Title Expenses *:</string>
     <string name="change_filter">Change filter</string>
     <string name="change_filter_and_oil">Change filter and oil</string>
+    <string name="search">Search</string>
 </resources>

@@ -45,4 +45,5 @@
     <string name="title_expenses_">שם ביזבוז *:</string>
     <string name="change_filter">החלפת פילטר</string>
     <string name="change_filter_and_oil">החלפת פילטר ושמן</string>
+    <string name="search">חיפוש</string>
 </resources>

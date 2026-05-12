@@ -45,4 +45,5 @@
     <string name="title_expenses_">Название расхода *:</string>
     <string name="change_filter">Замена фильтра</string>
     <string name="change_filter_and_oil">Замена фильтра и масла</string>
+    <string name="search">Поиск</string>
 </resources>
