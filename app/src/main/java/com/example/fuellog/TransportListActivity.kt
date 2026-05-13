@@ -2,8 +2,13 @@ package com.example.fuellog
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +32,11 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
     lateinit var viewModel: TransportListViewModel
 
     lateinit var backBtn: ImageView
+    lateinit var searchBtn: ImageView
+    lateinit var searchLinearLayout: LinearLayout
+    lateinit var searchEt: EditText
+    lateinit var closeBtnIv: ImageView
+    private var isSearchLinearLayoutVisibility: Boolean = false
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var transportRecyclerView: RecyclerView
     lateinit var addBtn: ImageView
@@ -81,6 +91,28 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
             backPress()
         }
 
+        searchBtn.setOnClickListener {
+            switchVisibilitySearchViews()
+        }
+
+        searchEt.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                adapter.getFilter().filter(editable.toString())
+            }
+
+            override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+        })
+
+        closeBtnIv.setOnClickListener {
+            searchEt.text = null
+            switchVisibilitySearchViews()
+        }
+
         swipeRefreshLayout.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
             viewModel.getTransportList()
         })
@@ -122,6 +154,10 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
 
     fun setReferences() {
         backBtn = findViewById(R.id.back_btn)
+        searchBtn = findViewById(R.id.search_btn)
+        searchLinearLayout = findViewById(R.id.search_linear_layout)
+        searchEt = findViewById(R.id.search_et)
+        closeBtnIv = findViewById(R.id.close_btn_iv)
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
         transportRecyclerView = findViewById(R.id.transport_recycler_view)
         addBtn = findViewById(R.id.add_btn)
@@ -181,6 +217,17 @@ class TransportListActivity : AppCompatActivity(), AdapterActionListener {
         })
 
         adapterActionsBottomSheetDialog.show(supportFragmentManager, AdapterActionsBottomSheetDialog.DIALOG_TAG)
+    }
+
+    private fun switchVisibilitySearchViews() {
+        isSearchLinearLayoutVisibility = !isSearchLinearLayoutVisibility
+
+        if (isSearchLinearLayoutVisibility) {
+            searchLinearLayout.visibility = View.VISIBLE
+            return
+        }
+
+        searchLinearLayout.visibility = View.GONE
     }
 
     fun backPress() {

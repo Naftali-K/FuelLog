@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -23,8 +24,53 @@ class TransportRecyclerViewAdapter(
     private var transportList: List<Transport> = ArrayList<Transport>()
 ): RecyclerView.Adapter<TransportRecyclerViewAdapter.TransportRecyclerViewHolder>() {
 
+    private val TAG: String = "Test_code"
+    private var transportListFiltered = mutableListOf<Transport>()
+
     fun setTransportList(list: List<Transport>) {
         this.transportList = list
+        this.transportListFiltered = ArrayList(list)
+        notifyDataSetChanged()
+    }
+
+    fun getFilter(): Filter {
+        return filter
+    }
+
+    private val filter = object: Filter() {
+        override fun performFiltering(charSequence: CharSequence?): FilterResults? {
+            val filteredList = ArrayList<Transport>()
+
+            if (charSequence.toString().isEmpty()) {
+                filteredList.addAll(transportList)
+            } else {
+                for (transport: Transport in transportList) {
+                    if (transport.name?.lowercase()?.contains(charSequence.toString().lowercase()) == true ||
+                        transport.model?.lowercase()?.contains(charSequence.toString().lowercase()) == true ||
+                        transport.company?.lowercase()?.contains(charSequence.toString().lowercase()) == true ||
+                        transport.description?.lowercase()?.contains(charSequence.toString().lowercase()) == true) {
+                        filteredList.add(transport)
+                    }
+                }
+            }
+
+            val filterResult = FilterResults()
+            filterResult.values = filteredList
+
+            return filterResult
+        }
+
+        override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults?) {
+            transportListFiltered.clear()
+
+            val result = filterResults?.values as? Collection<Transport>
+            result?.let {
+                transportListFiltered.addAll(it)
+            }
+
+            notifyDataSetChanged()
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransportRecyclerViewHolder {
@@ -33,11 +79,11 @@ class TransportRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: TransportRecyclerViewHolder, position: Int) {
-        holder.bind(transportList.get(position), position, context, callBack)
+        holder.bind(transportListFiltered.get(position), position, context, callBack)
     }
 
     override fun getItemCount(): Int {
-        return transportList.size
+        return transportListFiltered.size
     }
 
     class TransportRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
