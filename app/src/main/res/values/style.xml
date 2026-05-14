@@ -65,7 +65,7 @@
         <item name="android:lines">3</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:gravity">top</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColor">@color/dark_background</item>
     </style>
 
     <style name="nameValueStyle">
