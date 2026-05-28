@@ -69,8 +69,8 @@ class FuelFragment() : Fragment() {
         }
 
         openChartFuelConsumptionIv.setOnClickListener {
-            val intent = Intent(context, ChartFuelConsumptionActivity::class.java)
-                intent.putExtra(ChartFuelConsumptionActivity.EXTRA_TRANSPORT_ID, transportID)
+            val intent = Intent(requireContext(), ChartFuelConsumptionActivity::class.java)
+            intent.putExtra(ChartFuelConsumptionActivity.EXTRA_TRANSPORT_ID, transportID)
             startActivity(intent)
         }
 
@@ -205,10 +205,6 @@ class FuelFragment() : Fragment() {
     }
 
     private fun deleteItem(id: Long) {
-        viewModel.deleteFuelConsumption(id.toString())
-    }
-
-    private fun deleteItem(fuelConsumption: FuelConsumption) {
         viewModel.deleteFuelConsumption(id.toString())
     }
 }
