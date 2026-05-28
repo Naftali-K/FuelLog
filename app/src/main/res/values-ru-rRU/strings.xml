@@ -46,4 +46,5 @@
     <string name="change_filter">Замена фильтра</string>
     <string name="change_filter_and_oil">Замена фильтра и масла</string>
     <string name="search">Поиск</string>
+    <string name="chart_fuel_consumption">Диаграмма расхода топлива</string>
 </resources>

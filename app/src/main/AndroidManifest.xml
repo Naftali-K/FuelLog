@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FuelLog">
         <activity
+            android:name=".ChartFuelConsumptionActivity"
+            android:exported="false" />
+        <activity
             android:name=".TransportInfoActivity"
             android:exported="false" />
         <activity
