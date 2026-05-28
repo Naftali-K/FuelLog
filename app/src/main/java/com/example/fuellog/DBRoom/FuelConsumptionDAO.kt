@@ -31,6 +31,14 @@ interface FuelConsumptionDAO {
     @Query("SELECT * FROM ${FuelConsumption.TABLE_NAME} WHERE transportID=:transportID ORDER BY date DESC")
     suspend fun getTransportFuelConsumption(transportID: Int): List<FuelConsumption>
 
+    /**
+     * Get list of all Fuel Consumption for transport by ID (ordered ASC for charts)
+     * @param transportID Int transport ID
+     * @return List<FuelConsumption>
+     */
+    @Query("SELECT * FROM ${FuelConsumption.TABLE_NAME} WHERE transportID=:transportID ORDER BY date ASC")
+    suspend fun getTransportFuelConsumptionAsc(transportID: Int): List<FuelConsumption>
+
 
     /**
      * Add new Fuel Consumption for transport

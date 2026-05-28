@@ -47,4 +47,7 @@
     <string name="change_filter_and_oil">Change filter and oil</string>
     <string name="search">Search</string>
     <string name="chart_fuel_consumption">Chart Fuel Consumption</string>
+    <string name="back">Back</string>
+    <string name="fuel_consumption_liters_axis_label">Fuel consumption (liters) over time</string>
+    <string name="liter_unit">L</string>
 </resources>

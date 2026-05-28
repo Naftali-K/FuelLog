@@ -47,4 +47,7 @@
     <string name="change_filter_and_oil">החלפת פילטר ושמן</string>
     <string name="search">חיפוש</string>
     <string name="chart_fuel_consumption">תרשים צריכת דלק</string>
+    <string name="back">חזור</string>
+    <string name="fuel_consumption_liters_axis_label">צריכת דלק (ליטרים) לאורך זמן</string>
+    <string name="liter_unit">ל\'</string>
 </resources>
